@@ -1,0 +1,24 @@
+.uss
+{
+  min-width: 300px;
+
+  .window-content
+  {
+    background-image: none;
+    background-color: lightgrey;
+
+    form
+    {
+      display: flex;
+      flex-flow: wrap row;
+      gap: 0.5rem;
+
+      fieldset
+      {
+        min-width: 250px;
+        flex-grow: 1;
+        border: 1px solid black;
+      }
+    }
+  }
+}

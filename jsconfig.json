@@ -1,0 +1,8 @@
+{
+  "compilerOptions":
+  {
+    "types": ["@league-of-foundry-developers/foundry-vtt-types"],
+    "target": "ES2021"
+  },
+  "exclude": ["node_modules"]
+}

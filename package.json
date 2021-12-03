@@ -1,0 +1,39 @@
+{
+  "name": "rnd-npcs",
+  "version": "0.0.0",
+  "description": "A <a href=\"https://github.com/Marak/faker.js\">Faker.js</a> based FoundryVTT module to create randomised NPC data.",
+  "main": "index.js",
+  "scripts": {
+    "build": "gulp build",
+    "build:watch": "gulp buildWatch",
+    "deploy": "gulp zipbuild && gh-pages -d doc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tommycore/rnd-npcs.git"
+  },
+  "keywords": [],
+  "author": "Thomas Engelbert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tommycore/rnd-npcs/issues"
+  },
+  "homepage": "https://github.com/Tommycore/rnd-npcs#readme",
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^0.8.9-7",
+    "del": "^6.0.0",
+    "docdash": "^1.2.0",
+    "gh-pages": "^3.2.3",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-filelist": "^2.0.5",
+    "gulp-jsdoc3": "^3.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
+    "gulp-webp": "^4.0.1",
+    "gulp-zip": "^5.1.0",
+    "jsdoc": "^3.6.7",
+    "sass": "^1.43.4"
+  }
+}

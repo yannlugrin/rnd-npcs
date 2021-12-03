@@ -1,0 +1,31 @@
+{
+  "plugins": ["plugins/markdown"],
+  "source":
+  {
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "tags":
+  {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "templates":
+  {
+    "cleverLinks": true,
+    "monospaceLinks": true
+  },
+  "opts":
+  {
+    "template": "node_modules/docdash",
+    "encoding": "utf8",
+    "destination": "./doc/",
+    "recurse": true,
+    "tutorials": "./tutorials"
+  },
+  "docdash":
+  {
+    "search": true,
+    "sort": true
+  }
+}
