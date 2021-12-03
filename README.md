@@ -1,2 +1,2 @@
 # rnd-npcs
-A Faker.js based FoundryVTT module to create randomised NPC data.
+A [Faker.js](https://github.com/Marak/faker.js) based FoundryVTT module to create randomised NPC data.
