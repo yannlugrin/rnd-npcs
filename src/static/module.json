@@ -10,6 +10,7 @@
   "minimumCoreVersion": "0.8.6",
   "compatibleCoreVersion": "0.8.9",
   "styles": [ "rnd-npcs.css" ],
+  "scripts": [ "libs/faker.js" ],
   "esmodules": [ "rnd-npcs.mjs" ],
   "languages": [
     {

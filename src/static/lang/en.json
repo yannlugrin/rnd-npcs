@@ -1,6 +1,16 @@
 {
   "RNDNPCS":
   {
-    "GENERATE" : "Generate"
+    "CONTROLS":
+    {
+      "GROUP": "Random Data Generator",
+      "PERSON": "Person"
+    },
+    "CATEGORIES":
+    {
+      "ID": "ID",
+      "JOB": "Job",
+      "FAMILY": "Family"
+    }
   }
 }
