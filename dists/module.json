@@ -1,0 +1,38 @@
+{
+  "name": "rnd-npcs",
+  "title": "NPC Randomiser",
+  "description": "A <a href=\"https://github.com/Marak/faker.js\">Faker.js</a> based FoundryVTT module to create randomised NPC data.",
+  "version": "0.2.0",
+  "author": "Tommycore",
+  "authors":
+  [
+    {
+      "name": "Tommycore",
+      "discord": "Tommycore#2125",
+      "ko-fi": "Tommycore"
+    }
+  ],
+  "minimumCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.9",
+  "styles": [ "rnd-npcs.css" ],
+  "scripts": [ "libs/faker.js" ],
+  "esmodules": [ "rnd-npcs.mjs" ],
+  "languages": [
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "media": [
+    {
+      "type": "screenshot",
+      "url": "https://raw.githubusercontent.com/Tommycore/rnd-npcs/main/screenshots/mvp.jpg"
+    }
+  ]
+}
