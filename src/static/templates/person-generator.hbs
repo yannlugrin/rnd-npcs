@@ -1,13 +1,44 @@
-<form class="actor-sheet {{cssClass}}" autocomplete="off">
+<form autocomplete="off">
   <fieldset>
     <legend>{{localize "RNDNPCS.CATEGORIES.ID"}}</legend>
-    <label for="id-name">Name</label>
-    <input id="id-name" type="text" value="{{faker 'name.firstName'}} {{faker 'name.lastName'}}" default="Name" />
-  </fieldset>
-  <fieldset>
-    <legend>{{localize "RNDNPCS.CATEGORIES.FAMILY"}}</legend>
+    <div class="info-table">
+      <label for="first_name">{{localize "RNDNPCS.PERSON.FIRST_NAME"}}</label>
+      <input id="first_name" type="text" value="{{first_name}}" />
+      <a class="redo-btn" data-field="first_name"><i class="fas fa-redo"></i></a>
+
+      <label for="last_name" >{{localize "RNDNPCS.PERSON.LAST_NAME"}}</label>
+      <input id="last_name" type="text" value="{{last_name}}" />
+      <a class="redo-btn" data-field="last_name"><i class="fas fa-redo"></i></a>
+
+      <label for="nick_name">{{localize "RNDNPCS.PERSON.NICK_NAME"}}</label>
+      <input id="nick_name" type="text" value="{{nick_name}}" />
+      <a class="redo-btn" data-field="nick_name"><i class="fas fa-redo"></i></a>
+
+      <label for="email" >{{localize "RNDNPCS.PERSON.EMAIL"}}</label>
+      <input id="email" type="email" value="{{email}}" />
+      <a class="redo-btn" data-field="email"><i class="fas fa-redo"></i></a>
+    </div>
   </fieldset>
   <fieldset>
     <legend>{{localize "RNDNPCS.CATEGORIES.JOB"}}</legend>
+    <div class="info-table">
+      <label for="job" >{{localize "RNDNPCS.PERSON.JOB"}}</label>
+      <input id="job" type="text" value="{{job}}" />
+      <a class="redo-btn" data-field="job"><i class="fas fa-redo"></i></a>
+
+      <label for="company" >{{localize "RNDNPCS.PERSON.COMPANY"}}</label>
+      <input id="company" type="text" value="{{company}}" />
+      <a class="redo-btn" data-field="company"><i class="fas fa-redo"></i></a>
+    </div>
   </fieldset>
+  <div class="form-action-btns">
+    <a class="export-btn form-btn">
+      <p>{{localize "RNDNPCS.MISC.TO_JE"}}</p>
+      <i class="fas fa-book-open"></i>
+    </a>
+    <a class="redo-btn form-btn" data-field="all">
+      <p>{{localize "RNDNPCS.MISC.REDO_ALL"}}</p>
+      <i class="fas fa-redo"></i>
+    </a>
+  </div>
 </form>

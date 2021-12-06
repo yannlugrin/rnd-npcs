@@ -1,18 +1,20 @@
 import { RndConf } from "./module/helper/configuration.js"
 import { RndNpcLayer } from "./module/rnd-npc-layer.js"
-import { PersonGeneratorWindow } from "./module/person-generator.js"
+import { PersonWindow } from "./module/person-window.js"
+import { CorpWindow } from "./module/corp-window.js"
 
 Hooks.once('init', () =>
 {
   console.log("RndNPCs | Initialising...");
-  CONFIG.Canvas.layers[RndConf.SCOPE] = RndNpcLayer;
+  CONFIG.Canvas.layers[RndConf.SCOPE] = CanvasLayer;
+  RndConf.registerOptions();
+  faker.locale = game.settings.get(RndConf.SCOPE, RndConf.FAKER_LOCALE);
 
   return preloadTemplates();
 });
 
 Hooks.on('getSceneControlButtons', (controls) =>
 {
-  console.log(controls);
   controls.push(
   {
     activeTool: "person",
@@ -30,7 +32,18 @@ Hooks.on('getSceneControlButtons', (controls) =>
         visible: true,
         onClick: () =>
         {
-          new PersonGeneratorWindow().render(true);
+          new PersonWindow().render(true);
+        },
+        button: true
+      },
+      {
+        icon: "fas fa-store",
+        name: "corp",
+        title: "RNDNPCS.CONTROLS.CORP",
+        visible: true,
+        onClick: () =>
+        {
+          new CorpWindow().render(true);
         },
         button: true
       }

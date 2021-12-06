@@ -1,24 +1,96 @@
-.uss
-{
-  min-width: 300px;
+$dark: #222;
+$light: aliceblue;
 
+@mixin base-style
+{
+  min-height: 1.5rem;
+  min-width:  1.5rem;
+  border: 1px solid $light;
+  border-radius: 5rem;
+  background-color: $dark;
+  color: $light;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  &:hover, &:focus
+  {
+    text-shadow: none;
+    background-color: rgba($color: $light, $alpha: 0.2);
+  }
+
+  >i
+  {
+    margin: auto;
+  }
+}
+
+.rnd-npcs
+{
   .window-content
   {
-    background-image: none;
-    background-color: lightgrey;
+    background: $dark;
+  }
 
-    form
+  legend
+  {
+    color: $light;
+  }
+
+  fieldset
+  {
+    color: $light;
+    border-radius: 0.4rem;
+  }
+}
+
+.info-table
+{
+  display: grid;
+  grid-template-columns: 5rem 1fr 1.5rem;  
+  gap: 0.5rem;
+
+  *
+  {
+    margin: auto 0;
+  }
+
+  input
+  {
+    @include base-style();
+    text-align: left;
+    padding-left: 0.5rem;
+  }
+}
+
+.form-action-btns
+{
+  margin-top: 2rem;
+  display: flex;
+  gap: 0.5rem;
+
+  .form-btn
+  {
+    flex: 1;
+    justify-content: center;
+
+    >*
     {
-      display: flex;
-      flex-flow: wrap row;
-      gap: 0.5rem;
-
-      fieldset
-      {
-        min-width: 250px;
-        flex-grow: 1;
-        border: 1px solid black;
-      }
+      margin: 0 0.25rem;
     }
   }
+}
+
+.redo-btn
+{
+  @include base-style();
+}
+
+.export-btn
+{
+  @include base-style();
+
+  background-color: $light;
+  color: $dark;
 }

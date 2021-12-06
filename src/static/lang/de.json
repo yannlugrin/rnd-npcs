@@ -1,6 +1,53 @@
 {
   "RNDNPCS":
   {
-    "GENERATE" : "Generieren"
+    "MISC":
+    {
+      "WINDOW-TITLE": "Zufallsdaten",
+      "REDO_ALL": "Alles neu",
+      "TO_JE": "JournalEintrag erstellen"
+    },
+    "SETTINGS":
+    {
+      "PROMOTE_CHANGES": "Änderungen verbreiten",
+      "PROMOTE_CHANGES_HINT": "Wenn sich ein Feld ändert, sollen dann davon abhängige Felder auch geändert werden?",
+      "NPC_FOLDER": "NSC Ordner",
+      "NPC_FOLDER_HINT": "Name des Ordners in dem JournalEinträge zu NSCs gespeichert werden sollen. Lass dieses Feld leer um Einträge in keinem Ordner zu speichern.",
+      "CORP_FOLDER": "Firmenordner",
+      "CORP_FOLDER_HINT": "Name des Ordners in dem JournalEinträge zu Firmen gespeichert werden sollen. Lass dieses Feld leer um Einträge in keinem Ordner zu speichern.",
+      "FAKER_LOCALE": "Faker Locale",
+      "FAKER_LOCALE_HINT": "Wähle zu welcher Locale Faker Daten erstellen soll."
+    },
+    "CONTROLS":
+    {
+      "GROUP": "Zufallsdaten-Generator",
+      "PERSON": "Person",
+      "CORP": "Firma"
+    },
+    "CATEGORIES":
+    {
+      "ID": "Identität",
+      "JOB": "Beruf",
+      "ADDRESS": "Addresse",
+      "COMPANY": "Firma"
+    },
+    "PERSON":
+    {
+      "FIRST_NAME": "Vorname",
+      "LAST_NAME": "Nachname",
+      "NAME": "Name",
+      "NICK_NAME": "Internetname",
+      "EMAIL": "eMail",
+      "JOB": "Beruf",
+      "COMPANY": "Arbeitgeber"
+    },
+    "CORP":
+    {
+      "NAME": "Name",
+      "CEO": "CEO",
+      "AREA": "Branche",
+      "SLOGAN": "Slogan",
+      "BESTSELLER": "Meistverkauftes Produkt"
+    }
   }
 }

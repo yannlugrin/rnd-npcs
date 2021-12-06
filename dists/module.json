@@ -34,5 +34,8 @@
       "type": "screenshot",
       "url": "https://raw.githubusercontent.com/Tommycore/rnd-npcs/main/screenshots/mvp.jpg"
     }
-  ]
+  ],
+  "manifest": "https://raw.githubusercontent.com/Tommycore/rnd-npcs/48cd7a6c977b5eac411f6950a7954a05a45abfa4/dists/module.json",
+  "download": "https://github.com/Tommycore/rnd-npcs/raw/main/dists/rnd-npcs.zip",
+  "license": "https://github.com/Tommycore/rnd-npcs/blob/main/LICENSE"
 }
