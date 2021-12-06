@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Tutorial: Overview - Documentation</title>
+    <title>rnd-util.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -34,23 +34,33 @@
 
 <div id="main">
     
-    <h1 class="page-title">Tutorial: Overview</h1>
+    <h1 class="page-title">rnd-util.js</h1>
     
 
+    
+
+
+
+    
     <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>export class RndUtil
+{
+  /**
+   * Receive a boolean that is based on chance.
+   * @param {number} p - The percentage [0, 1] of getting true as a result.
+   * @returns {boolean}
+   */
+  static chance(p)
+  {
+    return faker.datatype.float({min: 0, max: 1}) &lt; p;
+  }
+}</code></pre>
+        </article>
+    </section>
 
-<header>
-    
 
-    <h2>Overview</h2>
-</header>
 
-<article>
-    <h1>Table of Contents</h1>
-<p><a href="./lorem-ipsum.html">Lorem Ipsum</a></p>
-</article>
-
-</section>
 
     
     
