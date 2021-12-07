@@ -30,7 +30,9 @@
               "I am [self:first_name] [self:last_name]",
               "[self:first_name] is [faker:company.catchPhraseAdjective]",
               "[self:last_name] is [faker:company.catchPhraseAdjective]",
-              "[self:first_name][table:filler-marks][self:last_name]"
+              "[self:first_name][table:filler-marks][self:last_name]",
+              "[faker:commerce.department] & [faker:commerce.department] [faker:commerce.productAdjective]",
+              "[faker:company.catchPhraseAdjective] [faker:commerce.productMaterial] [faker:animal.type]"
             ],
             "propagates": ["email"],
             "post_proc": [{"chance": 0.5, "processPool": ["slugify", "tolower", "camelcase"]}]
