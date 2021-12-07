@@ -1,0 +1,64 @@
+[
+  {
+    "name": "person2",
+    "icon": "far fa-id-card",
+    "label": "RNDNPCS.CONTROLS.PERSON",
+    "categories":
+    [
+      {
+        "label": "RNDNPCS.CATEGORIES.ID",
+        "fields":
+        [
+          {
+            "name": "first_name",
+            "label": "RNDNPCS.PERSON.FIRST_NAME",
+            "options": [ "[faker:name.firstName]" ],
+            "propagates": ["nick_name", "email"]
+          },
+          {
+            "name": "last_name",
+            "label": "RNDNPCS.PERSON.LAST_NAME",
+            "options": [ "[faker:name.lastName]" ],
+            "propagates": ["nick_name", "email"]
+          },
+          {
+            "name": "nick_name",
+            "label": "RNDNPCS.PERSON.NICK_NAME",
+            "options":
+            [
+              "[faker:hacker.ingverb][self:first_name]",
+              "I am [self:first_name] [self:last_name]",
+              "[self:first_name] is [faker:company.catchPhraseAdjective]",
+              "[self:last_name] is [faker:company.catchPhraseAdjective]",
+              "[self:first_name][table:filler-marks][self:last_name]"
+            ],
+            "propagates": ["email"],
+            "post_proc": [{"chance": 0.5, "processPool": ["slugify", "tolower", "camelcase"]}]
+          },
+          {
+            "name": "email",
+            "label": "RNDNPCS.PERSON.EMAIL",
+            "options": [ "[faker:internet.email:[self:first_name]:[self:last_name]]" ],
+            "post_proc": [{"chance": 1, "processPool": ["slugify"]}]
+          }
+        ]
+      },
+      {
+        "label": "RNDNPCS.CATEGORIES.JOB",
+        "fields":
+        [
+          {
+            "name": "job",
+            "label": "RNDNPCS.PERSON.JOB",
+            "options": [ "JOB" ]
+          },
+          {
+            "name": "company",
+            "label": "RNDNPCS.PERSON.COMPANY",
+            "options": [ "COMPANY" ]
+          }
+        ]
+      }
+    ]
+  }
+]

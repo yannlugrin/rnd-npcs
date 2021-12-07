@@ -1,0 +1,14 @@
+<form autocomplete="off">
+  {{#each recipe.categories}}
+    <fieldset>
+      <legend>{{localize label}}</legend>
+      <div class="info-table">
+        {{#each fields}}
+          <label>{{localize label}}</label>
+          <p>{{lookup @root.fields name}}</p>
+          <a class="redo-btn" data-field="{{name}}"><i class="fas fa-redo"></i></a>
+        {{/each}}
+      </div>
+    </fieldset>
+  {{/each}}
+</form>

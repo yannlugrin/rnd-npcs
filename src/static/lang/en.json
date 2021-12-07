@@ -28,7 +28,6 @@
     {
       "ID": "ID",
       "JOB": "Job",
-      "ADDRESS": "Address",
       "COMPANY": "Company"
     },
     "PERSON":
