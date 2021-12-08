@@ -14,7 +14,13 @@ export class Category
     return c;
   }
 
+  /**
+   * @property {String} label
+   */
   get label() { return this._label; }
-  set label(value) { this._label = value; }
+
+  /**
+   * @property {Array<Field>} fields
+   */
   get fields() { return this._fields; }
 }

@@ -4,14 +4,15 @@ import { RndUtil } from "./helper/rnd-util.js";
 export class PostProcessOption
 {
   _chance = 0;
-  _options = [];
+  _processPool = [];
 
   static fromObject(obj)
   {
     const ppo = new PostProcessOption();
 
     ppo._chance = Number(obj.chance);
-    obj.processPool.forEach(el => ppo._options.push(el));
+
+    obj.processPool.forEach(el => ppo._processPool.push(el));
 
     return ppo;
   }
@@ -22,9 +23,11 @@ export class PostProcessOption
   get isUsed() { return RndUtil.chance(this._chance); }
 
   /**
-   * @member {Array<String>} processOptions - First entry is the name, the remaining entries are the arguments.
+   * @member {String} processOption - First entry is the name, the remaining entries are the arguments.
    */
-  get processOptions() {
-    let result = faker.random.arrayElement(this._options);
-    return result.split(Creation.PART_DELIMITER); }
+  get processOption()
+  {
+    let result = faker.random.arrayElement(this._processPool);
+    return result.split(Creation.PART_DELIMITER);
+  }
 }

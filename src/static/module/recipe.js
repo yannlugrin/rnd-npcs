@@ -1,5 +1,7 @@
+//@ts-check
 import { Category } from "./category.js";
 import { Field } from "./field.js";
+import { ActionButton } from "./action-button.js";
 
 export class Recipe
 {
@@ -8,7 +10,18 @@ export class Recipe
   _icon = "fas fa-question";
   _categories = [];
   _fieldNames = [];
+  _btns = [];
 
+  /**
+   * Creates and initialises a Recipe instance from loose data.
+   * @param {Object} obj Recipedata
+   * @param {String} obj.name Technical name of the recipe.
+   * @param {String} obj.label
+   * @param {String} obj.icon
+   * @param {Array} obj.categories
+   * @param {Array} obj.actions
+   * @returns {Recipe} The finished Recipe instance.
+   */
   static fromObject(obj)
   {
     const r = new Recipe();
@@ -22,6 +35,7 @@ export class Recipe
       r._categories.push(Category.fromObject(el));
       el.fields.forEach(f => r._fieldNames.push(f.name));
     });
+    obj.actions?.forEach(el => r._btns.push(ActionButton.fromObject(el)));
 
     return r;
   }
@@ -34,6 +48,7 @@ export class Recipe
   set icon(value) { this._icon = value; }
   get categories() { return this._categories; }
   get fieldNames() { return this._fieldNames; }
+  get buttons() { return this._btns; }
   
   /**
    * 
@@ -44,12 +59,12 @@ export class Recipe
   {
     let result = null;
     
-    this._categories.forEach(c =>
+    this._categories.forEach((/** @type {Category} */ c) =>
     {
-      const found = c.fields.filter(f => f.name === name);
+      const found = c.fields.filter((/** @type {Field} */ f) => f.name === name);
       if(found.length > 1)
       {
-        throw new Error(`Somewhere, something went terribly wrong and now there are mutliple fields with the same name and the universe will soon start folding in on itself. Triggered by ${name} in ${c.name}.`);
+        throw new Error(`Somewhere, something went terribly wrong and now there are mutliple fields with the same name and the universe will soon start folding in on itself. Triggered by ${name} in ${c.label}.`);
       }
       if(1 === found.length)
       {

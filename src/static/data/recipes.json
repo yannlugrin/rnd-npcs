@@ -3,9 +3,10 @@
   "recipes":
   [
     {
-      "name": "person2",
+      "name": "person",
       "icon": "far fa-id-card",
       "label": "RNDNPCS.CONTROLS.PERSON",
+      "folderSetting": "people",
       "categories":
       [
         {
@@ -14,19 +15,20 @@
           [
             {
               "name": "full_name",
-              "options": [ "[self:first_name] [self:last_name]" ]
+              "options": [ "[self:first_name] [self:last_name]" ],
+              "order": 10
             },
             {
               "name": "first_name",
               "label": "RNDNPCS.PERSON.FIRST_NAME",
               "options": [ "[faker:name.firstName]" ],
-              "propagates": ["nick_name", "email", "full_name"]
+              "propagates": [ "nick_name", "email", "full_name" ]
             },
             {
               "name": "last_name",
               "label": "RNDNPCS.PERSON.LAST_NAME",
               "options": [ "[faker:name.lastName]" ],
-              "propagates": ["nick_name", "email", "full_name"]
+              "propagates": [ "nick_name", "email", "full_name" ]
             },
             {
               "name": "nick_name",
@@ -41,14 +43,16 @@
                 "[faker:commerce.department] & [faker:commerce.department] [faker:commerce.productAdjective]",
                 "[faker:company.catchPhraseAdjective] [faker:commerce.productMaterial] [faker:animal.type]"
               ],
-              "propagates": ["email"],
-              "post_proc": [{"chance": 0.5, "processPool": ["slugify", "tolower", "camelcase"]}]
+              "propagates": [ "email" ],
+              "post_proc": [ {"chance": 0.5, "processPool": ["slugify", "tolower", "camelcase"]} ],
+              "order": 10
             },
             {
               "name": "email",
               "label": "RNDNPCS.PERSON.EMAIL",
               "options": [ "[faker:internet.email:[self:first_name]:[self:last_name]]" ],
-              "post_proc": [{"chance": 1, "processPool": ["slugify"]}]
+              "post_proc": [ {"chance": 1, "processPool": ["slugify"]} ],
+              "order": 20
             }
           ]
         },
@@ -74,7 +78,7 @@
         {
           "label": "RNDNPCS.MISC.REDO_ALL",
           "icon": "fas fa-redo",
-          "action": "redo_all"
+          "action": "redo"
         },
         {
           "label": "RNDNPCS.MISC.TO_JE",
@@ -82,6 +86,49 @@
           "action": "export_to_je",
           "args": "full_name",
           "highlight": true
+        }
+      ]
+    },
+    {
+      "name": "corp",
+      "icon": "fas fa-store",
+      "label": "RNDNPCS.CONTROLS.CORP",
+      "categories":
+      [
+        {
+          "label": "RNDNPCS.CONTROLS.CORP",
+          "fields":
+          [
+            {
+              "name": "name",
+              "label": "RNDNPCS.CORP.NAME",
+              "options": [ "[faker:company.companyName]" ],
+              "post_proc":
+              [
+                { "chance": 0.25, "processPool": [ "camelcase", "slugify" ] }
+              ]
+            },
+            {
+              "name": "ceo",
+              "label": "RNDNPCS.CORP.CEO",
+              "options": [ "[faker:name.firstName] [faker:name.lastName]" ]
+            },
+            {
+              "name": "area",
+              "label": "RNDNPCS.CORP.AREA",
+              "options": [ "[faker:commerce.department]" ]
+            },
+            {
+              "name": "slogan",
+              "label": "RNDNPCS.CORP.SLOGAN",
+              "options": [ "[faker:company.catchPhrase]" ]
+            },
+            {
+              "name": "latest_product",
+              "label": "RNDNPCS.CORP.LATEST_PRODUCT",
+              "options": [ "[faker:commerce.productName]" ]
+            }
+          ]
         }
       ]
     }

@@ -1,10 +1,10 @@
 import { RndConf } from "./helper/configuration.js";
 import { Creation } from "./creation.js";
 import { Recipe } from "./recipe.js";
+import { ContentGenerationManager as CMgr } from "./content-generation-mgr.js";
 
 export class GeneratorWindow extends Application
 {
-  recipe = null;
   data = null;
 
   static get defaultOptions()
@@ -34,68 +34,30 @@ export class GeneratorWindow extends Application
     const data = new Creation(recipe);
     super(data);
 
-    this.recipe = recipe;
     this.data = data;
   }
 
-  getData()
+  async getData()
   {
-    console.log("Foo");
+    await this.data.resolveDirty();
+
+    return this.data;
   }
 
-  async _redo(ev)
+  async form_action(ev)
   {
     ev.preventDefault();
+    const action = ev.currentTarget.dataset.action;
+    const args = ev.currentTarget.dataset.args?.split(Creation.PART_DELIMITER);
     
-    const field = ev.currentTarget.dataset.field;
-    if("all" === field)
-    {
-      await this.data.randomiseAll();
-    }
-    else
-    {
-      await this.data.trigger(field);
-    }
-
+    CMgr.execFormAction(action, this.data, args);
     this.render(true);
-  }
-
-  async _toJE(ev)
-  {
-    ev.preventDefault();
-
-    const je = await JournalEntry.create(
-    {
-      name: `${this.data.name}`,
-      content: this.data.toHtml()
-    });
-
-    const folderName = game.settings.get(RndConf.SCOPE, RndConf.CORP_FOLDER);
-    if(folderName)
-    {
-      let folder = game.folders.getName(folderName);
-      if(!folder)
-      {
-        folder = await Folder.create({name: folderName, type:'JournalEntry'});
-      }
-
-      await je.update({id:je.id, folder: folder.id});
-    }
-
-    je.sheet.render(true);
-    this.close();
   }
 
   activateListeners(html)
   {
     super.activateListeners(html);
 
-    html.find('.redo-btn').click(this._redo.bind(this));
-    html.find('.export-btn').click(this._toJE.bind(this));
-  }
-
-  getData()
-  {
-    return this.data;
+    html.find('.action-btn').click(this.form_action.bind(this));
   }
 }

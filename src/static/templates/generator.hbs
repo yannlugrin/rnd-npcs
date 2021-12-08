@@ -4,11 +4,30 @@
       <legend>{{localize label}}</legend>
       <div class="info-table">
         {{#each fields}}
-          <label>{{localize label}}</label>
-          <p>{{lookup @root.fields name}}</p>
-          <a class="redo-btn" data-field="{{name}}"><i class="fas fa-redo"></i></a>
+          {{#if label}}
+            <label>{{localize label}}</label>
+            <p>{{lookup @root.fields name}}</p>
+            <a class="action-btn inline-btn" data-action="redo" data-args="{{name}}"><i class="fas fa-redo"></i></a>
+          {{/if}}
         {{/each}}
       </div>
     </fieldset>
   {{/each}}
+  <div class="form-action-btns">
+    {{#each recipe.buttons}}
+      <a class="action-btn bottom-btn {{#if highlight}}highlight{{/if}}" data-action="{{action}}" data-args="{{args}}">
+        <p>{{localize label}}</p>
+        <i class="{{icon}}"></i>
+      </a>
+    {{else}}
+      <a class="action-btn bottom-btn" data-action="redo">
+        <p>{{localize "RNDNPCS.MISC.REDO_ALL"}}</p>
+        <i class="fas fa-redo"></i>
+      </a>
+      <a class="action-btn bottom-btn highlight" data-action="export_to_je">
+        <p>{{localize "RNDNPCS.MISC.TO_JE"}}</p>
+        <i class="fas fa-book-open"></i>
+      </a>
+    {{/each}}
+  </div>
 </form>

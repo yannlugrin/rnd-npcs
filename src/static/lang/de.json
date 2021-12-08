@@ -5,7 +5,8 @@
     {
       "WINDOW-TITLE": "Zufallsdaten",
       "REDO_ALL": "Alles neu",
-      "TO_JE": "JournalEintrag erstellen"
+      "TO_JE": "JournalEintrag erstellen",
+      "NEW_UNNAMED": "Zufallsdateneintrag"
     },
     "SETTINGS":
     {
@@ -47,7 +48,7 @@
       "CEO": "CEO",
       "AREA": "Branche",
       "SLOGAN": "Slogan",
-      "BESTSELLER": "Meistverkauftes Produkt"
+      "LATEST_PRODUCT": "Neuestes Produkt"
     }
   }
 }

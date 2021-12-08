@@ -1,4 +1,5 @@
 import { ContentGenerationManager as CGMgr } from "./content-generation-mgr.js";
+import { Field } from "./field.js";
 import { RndUtil } from "./helper/rnd-util.js";
 import { PostProcessOption as PPO } from "./post-proc-option.js";
 import { Recipe } from "./recipe.js";
@@ -7,6 +8,7 @@ export class Creation
 {
   _recipe = null;
   _fields = {};
+  _dirty = new Set();
   
   static _max_attempts = 100;
 
@@ -26,14 +28,53 @@ export class Creation
     }
 
     this._recipe = recipe;
-    recipe.fieldNames.forEach(el =>
+    this.setAllDirty();
+    console.log(this._recipe);
+  }
+
+  setAllDirty()
+  {
+    this._recipe.fieldNames.forEach(el =>
     {
-      this.trigger(el);
+      this._dirty.add(el);
     });
+  }
+
+  async resolveDirty()
+  {
+    // Sort dirty fields by order.
+    const valArr = [...this._dirty.values()];
+    const sorted = valArr.sort((a, b) => { return this._recipe.getField(a).order - this._recipe.getField(b).order; });
+
+    // Resolve rerolling.
+    sorted.forEach(async el => this.trigger(el));
+    this._dirty.clear();
+  }
+
+  /**
+   * Marks a field for rerolling. Will also mark all depending fields for rerolling.
+   * @param {String} field - Name of the field you want to mark.
+   */
+  setDirty(field)
+  {
+    if(this._dirty.has(field))
+    {
+      return;
+    }
+
+    this._dirty.add(field);
+    const recipe_field = this._recipe.getField(field);
+    recipe_field.propagates.forEach(el =>
+    {
+      this.setDirty(el);
+    });
+
+    console.log(this._dirty);
   }
 
   async trigger(field)
   {
+    console.log("trigger", field);
     const recipe_field = this._recipe.getField(field);
     let result = recipe_field.option;
 
@@ -58,13 +99,32 @@ export class Creation
     {
       if(el.isUsed)
       {
-        const parts = el.processOptions;
+        const parts = el.processOption;
         result = CGMgr.postProcess(parts[0].toLowerCase(), result, parts.splice(1));
       }
     });
 
     this._fields[field] = result;
-    recipe_field.propagates.forEach(el => this.trigger(el));
+    //recipe_field.propagates.forEach(el => this.trigger(el));
+  }
+
+  toHtml()
+  {
+    let html = '<table>';
+    this.recipe.fieldNames.forEach(fieldName =>
+    {
+      let field = this._recipe.getField(fieldName);
+      if(!field.label)
+      {
+        // Fields without label are considered hidden, thus getting skipped.
+        return;
+      }
+
+      html += `<tr><td>${game.i18n.localize(field.label)}</td><td>${this._fields[field.name]}</td></tr>`
+    });
+    html += '</table>';
+
+    return html;
   }
 
   get recipe() { return this._recipe; }

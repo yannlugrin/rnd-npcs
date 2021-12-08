@@ -85,6 +85,11 @@
                         "description": "A key for Foundry's localisation system. Omit this for a hidden field.",
                         "minLength": 1
                       },
+                      "order":
+                      {
+                        "type": "integer",
+                        "description": "Determines order when mutliple fields get rerolled at once. Higher numbers equal later reroll."
+                      },
                       "propagates":
                       {
                         "type": "array",
@@ -125,6 +130,7 @@
                               {
                                 "type": "string",
                                 "description": "Name of a string post processing operation.",
+                                "examples": [ "camelcase", "tolower", "slugify" ],
                                 "minLength": 1
                               }
                             }
@@ -141,7 +147,7 @@
           {
             "type": "array",
             "description": "A list of buttons at the bottom of the window.",
-            "minLength": 1,
+            "minItems": 1,
             "items":
             {
               "type": "object",
@@ -166,7 +172,7 @@
                 {
                   "type": "string",
                   "description": "Name of the operation that should be performed on click.",
-                  "examples": [ "export_to_je", "redo_all" ],
+                  "examples": [ "export_to_je", "redo" ],
                   "minLength": 1
                 },
                 "args":

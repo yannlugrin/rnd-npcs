@@ -5,7 +5,8 @@
     {
       "WINDOW-TITLE": "Random Data",
       "REDO_ALL": "Redo all",
-      "TO_JE": "Create JournalEntry"
+      "TO_JE": "Create JournalEntry",
+      "NEW_UNNAMED": "Random Data Entry"
     },
     "SETTINGS":
     {
@@ -46,7 +47,7 @@
       "CEO": "CEO",
       "AREA": "Industry",
       "SLOGAN": "Slogan",
-      "BESTSELLER": "Most sold product"
+      "LATEST_PRODUCT": "Latest product"
     }
   }
 }

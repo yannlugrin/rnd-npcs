@@ -18,71 +18,36 @@ class RndMain
 
     CGMgr.init();
 
-    const recipeList = await fetch(`modules/${RndConf.SCOPE}/data/recipes.json`);
-    const recipes = await recipeList.json();
-    recipes.forEach(el => { RndMain._recipes.push(Recipe.fromObject(el)); });
+    const recipe_file = await fetch(`modules/${RndConf.SCOPE}/data/recipes.json`);
+    const recipe_list = await recipe_file.json();
+    recipe_list.recipes.forEach(el => { CGMgr.add_recipe(el); });
   
+    console.log("Init done");
     return preloadTemplates();
+  }
+
+  static async ready()
+  {
+    console.log("RndNPCs | Readying...");
   }
 
   static onGetSceneControlButtons(controls)
   {
     controls.push(
     {
-      activeTool: "person",
+      activeTool: null,
       icon: "fas fa-diagnoses",
       layer: RndConf.SCOPE,
       name: RndConf.SCOPE,
       title: "RNDNPCS.CONTROLS.GROUP",
       visible: true,
-      tools:
-      [
-        {
-          icon: "far fa-id-card",
-          name: "person",
-          title: "RNDNPCS.CONTROLS.PERSON",
-          visible: true,
-          onClick: () =>
-          {
-            new PersonWindow().render(true);
-          },
-          button: true
-        },
-        {
-          icon: "fas fa-store",
-          name: "corp",
-          title: "RNDNPCS.CONTROLS.CORP",
-          visible: true,
-          onClick: () =>
-          {
-            new CorpWindow().render(true);
-          },
-          button: true
-        }
-      ]
-    });
-  
-    const ctrl = controls.filter(el => el.name === RndConf.SCOPE)[0];
-    RndMain._recipes.forEach(el =>
-    {
-      ctrl.tools.push(
-      {
-        icon: el.icon,
-        name: el.name,
-        title: game.i18n.localize(el.label),
-        visible: true,
-        button: true,
-        onClick: () =>
-        {
-          new GeneratorWindow(el).render(true);
-        }
-      });
+      tools: CGMgr.getSceneButtons()
     });
   }
 }
 
 Hooks.once('init', RndMain.init);
-
+Hooks.once('ready', RndMain.ready);
 Hooks.on('getSceneControlButtons', RndMain.onGetSceneControlButtons);
 
 async function preloadTemplates()

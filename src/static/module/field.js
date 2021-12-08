@@ -1,9 +1,11 @@
+import { RndUtil } from "./helper/rnd-util.js";
 import { PostProcessOption as PPO } from "./post-proc-option.js";
 
 export class Field
 {
   _name = "NAME";
   _label = "LABEL";
+  _order = 0;
   _options = [];
   _propagates = [];
   _post_proc = [];
@@ -13,7 +15,8 @@ export class Field
     const f = new Field();
     f._name = obj.name;
     f._label = obj.label;
-    obj.options?.forEach(el => f._options.push(el));
+    f._order = RndUtil.parseIntWithDefault(obj.order);
+    obj.options.forEach(el => f._options.push(el));
     obj.propagates?.forEach(el => f._propagates.push(el));
     obj.post_proc?.forEach(el => f._post_proc.push(PPO.fromObject(el)));
 
@@ -24,6 +27,7 @@ export class Field
   set name(value) { this._name = value; }
   get label() { return this._label; }
   set label(value) { this._label = value; }
+  get order() { return this._order; }
   get propagates() { return this._propagates; }
   get post_proc() { return this._post_proc; }
 
