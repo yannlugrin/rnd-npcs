@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "required": [ "recipes" ],
+  "properties":
+  {
+    "recipes":
+    {
+      "type": "array",
+      "minItems": 1,
+      "items":
+      {
+        "type": "object",
+        "required": [ "name", "icon", "label", "categories" ],
+        "properties":
+        {
+          "name":
+          {
+            "type": "string",
+            "description": "Technical name of the scene control button.",
+            "minLength": 1
+          },
+          "icon":
+          {
+            "type": "string",
+            "description": "Font Awesome icon id.",
+            "examples": ["fas fa-", "far fa-"],
+            "minLength": 1
+          },
+          "label":
+          {
+            "type": "string",
+            "description": "A key for Foundry's localisation system. Shown as tooltip on the scene control button.",
+            "minLength": 1
+          },
+          "categories":
+          {
+            "type": "array",
+            "description": "Fields get visually sorted into categories, but categories have no logical impact.",
+            "minItems": 1,
+            "items":
+            {
+              "type": "object",
+              "required":[ "label", "fields" ],
+              "properties":
+              {
+                "label":
+                {
+                  "type": "string",
+                  "description": "A key for Foundry's localisation system.",
+                  "minLength": 1
+                },
+                "fields":
+                {
+                  "type": "array",
+                  "description": "The bits of information that make up an entry.",
+                  "minimum": 1,
+                  "items":
+                  {
+                    "type": "object",
+                    "required": [ "name", "options" ],
+                    "properties":
+                    {
+                      "name":
+                      {
+                        "type": "string",
+                        "description": "The reference for the field.",
+                        "minLength": 1
+                      },
+                      "options":
+                      {
+                        "type": "array",
+                        "description": "Blueprints for field values. Can be evaluated.",
+                        "minItems": 1,
+                        "items":
+                        {
+                          "type": "string",
+                          "description": "Blueprint for a field's potential value",
+                          "minLength": 1
+                        }
+                      },
+                      "label":
+                      {
+                        "type": "string",
+                        "description": "A key for Foundry's localisation system. Omit this for a hidden field.",
+                        "minLength": 1
+                      },
+                      "propagates":
+                      {
+                        "type": "array",
+                        "description": "A list of all fields that need to be recreated if this field is changed.",
+                        "minItems": 1,
+                        "items":
+                        {
+                          "type": "string",
+                          "description": "Reference to another field.",
+                          "minLength": 1
+                        }
+                      },
+                      "post_proc":
+                      {
+                        "type": "array",
+                        "description": "A list of potential operations that should be performed on the whole string after creation. This is the place to make sure a result conforms to your desired standards.",
+                        "minItems": 1,
+                        "items":
+                        {
+                          "type": "object",
+                          "description": "A step in the list of operations that can get executed on the field result.",
+                          "required": [ "chance", "processPool" ],
+                          "properties":
+                          {
+                            "chance":
+                            {
+                              "type": "number",
+                              "description": "A number between 0 (no chance) and 1 (100% chance) that determines how likely it is that one of the operations in this step will be executed.",
+                              "minimum": 0,
+                              "maximum": 1
+                            },
+                            "processPool":
+                            {
+                              "type": "array",
+                              "description": "A mutually exclusive list of all possible operations for this step.",
+                              "minItems": 1,
+                              "items":
+                              {
+                                "type": "string",
+                                "description": "Name of a string post processing operation.",
+                                "minLength": 1
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "actions":
+          {
+            "type": "array",
+            "description": "A list of buttons at the bottom of the window.",
+            "minLength": 1,
+            "items":
+            {
+              "type": "object",
+              "description": "A single button at the bottom of the window.",
+              "required": [ "label", "icon", "action" ],
+              "properties":
+              {
+                "label":
+                {
+                  "type": "string",
+                  "description": "A key for Foundry's localisation system.",
+                  "minLength": 1
+                },
+                "icon":
+                {
+                  "type": "string",
+                  "description": "Font Awesome icon id.",
+                  "examples": ["fas fa-open-book"],
+                  "minLength": 1
+                },
+                "action":
+                {
+                  "type": "string",
+                  "description": "Name of the operation that should be performed on click.",
+                  "examples": [ "export_to_je", "redo_all" ],
+                  "minLength": 1
+                },
+                "args":
+                {
+                  "type": "string",
+                  "description": "Arguments for the operation, divided by colons.",
+                  "minLength": 1
+                },
+                "highlight":
+                {
+                  "type": "boolean",
+                  "description": "If this key is present in the object and is set to true, the button will be visually emphasised."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
