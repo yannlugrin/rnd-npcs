@@ -33,39 +33,53 @@ export class RndUtil
     return 0;
   }
 
-  static async faker_gen_func(input, fields, args)
+  //---------------------------------------------------------------
+  // Generator Methods
+  //---------------------------------------------------------------
+  static async faker_gm(input, fields, args)
   {
     return foundry.utils.getProperty(faker, args[0])(...args.slice(1));
   }
 
-  static async self_gen_func(input, fields, args)
+  static async self_gm(input, fields, args)
   {
     return fields[args[0]];
   }
 
-  static async rolltable_gen_func(input, fields, args)
+  static async rolltable_gm(input, fields, args)
   {
     let drawn = await game.tables.getName(args[0]).draw({displayChat: false});
     let result = drawn.results[0].data.text;
     return result;
   }
 
-  static to_lower_pp_func(input, args)
+  static async pick_one_gm(input, fields, args)
+  {
+    return faker.random.arrayElement(args);
+  }
+
+  //---------------------------------------------------------------
+  // Postprocessing Methods
+  //---------------------------------------------------------------
+  static to_lower_ppm(input, args)
   {
     return input.toLowerCase();
   }
 
-  static slugify_pp_func(input, args)
+  static slugify_ppm(input, args)
   {
     return input.slugify();
   }
 
-  static camelcase_pp_func(input, args)
+  static camelcase_ppm(input, args)
   {
     return input.replace(/\s+(\w)/g, (a, b) => b.toUpperCase());
   }
 
-  static async export_to_je_faf(data, args)
+  //---------------------------------------------------------------
+  // Form Action Methods
+  //---------------------------------------------------------------
+  static async export_to_je_fam(data, args)
   {
     let key = "name";
     if(args)
@@ -105,7 +119,7 @@ export class RndUtil
    * @param {Creation} data 
    * @param {Array} args - Array with the name of the field you want to reroll at first index. Omit the whole array to reroll all.
    */
-  static redo_faf(data, args)
+  static redo_fam(data, args)
   {
     console.log("Redo", args);
     if(!args || !args[0])

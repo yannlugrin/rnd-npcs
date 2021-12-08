@@ -12,16 +12,17 @@ export class ContentGenerationManager
   
   static init()
   {
-    ContentGenerationManager._gen_funcs.set("faker", RndUtil.faker_gen_func);
-    ContentGenerationManager._gen_funcs.set("self", RndUtil.self_gen_func);
-    ContentGenerationManager._gen_funcs.set("table", RndUtil.rolltable_gen_func);
+    ContentGenerationManager._gen_funcs.set("faker", RndUtil.faker_gm);
+    ContentGenerationManager._gen_funcs.set("self", RndUtil.self_gm);
+    ContentGenerationManager._gen_funcs.set("table", RndUtil.rolltable_gm);
+    ContentGenerationManager._gen_funcs.set("pick_one", RndUtil.pick_one_gm);
 
-    ContentGenerationManager._post_proc_funcs.set("tolower", RndUtil.to_lower_pp_func);
-    ContentGenerationManager._post_proc_funcs.set("slugify", RndUtil.slugify_pp_func);
-    ContentGenerationManager._post_proc_funcs.set("camelcase", RndUtil.camelcase_pp_func);
+    ContentGenerationManager._post_proc_funcs.set("tolower", RndUtil.to_lower_ppm);
+    ContentGenerationManager._post_proc_funcs.set("slugify", RndUtil.slugify_ppm);
+    ContentGenerationManager._post_proc_funcs.set("camelcase", RndUtil.camelcase_ppm);
 
-    ContentGenerationManager._form_action_funcs.set("export_to_je", RndUtil.export_to_je_faf);
-    ContentGenerationManager._form_action_funcs.set("redo", RndUtil.redo_faf);
+    ContentGenerationManager._form_action_funcs.set("export_to_je", RndUtil.export_to_je_fam);
+    ContentGenerationManager._form_action_funcs.set("redo", RndUtil.redo_fam);
   }
 
   /**
