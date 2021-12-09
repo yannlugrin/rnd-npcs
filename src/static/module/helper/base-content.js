@@ -1,4 +1,5 @@
 import { ContentGenerationManager as CGMgr } from "../content-generation-mgr.js";
+import { RndConf } from "./configuration.js";
 
 /**
  * This class holds, and is responsible for, the most basal content.
@@ -28,6 +29,13 @@ export class BaseContentManager
     {
       register("redo", BaseContentManager.redo_fam);
       register("export_to_je", BaseContentManager.export_to_je_fam);
+    });
+
+    Hooks.once(CGMgr.REGISTER_RECIPES_HOOK, (register) =>
+    {
+      fetch(`modules/${RndConf.SCOPE}/data/recipes.json`)
+        .then(recipe_file => recipe_file.json()
+        .then(recipe_list => recipe_list.recipes.forEach(el => { register(el); })));
     });
   }
 

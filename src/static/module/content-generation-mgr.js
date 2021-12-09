@@ -28,7 +28,7 @@ export class ContentGenerationManager
   static _add_recipe(recipeData)
   {
     const recipe = Recipe.fromObject(recipeData)
-    this._recipes.set(recipe.name, recipe);
+    ContentGenerationManager._recipes.set(recipe.name, recipe);
   }
 
   /**

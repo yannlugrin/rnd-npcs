@@ -16,9 +16,6 @@ class RndMain
     BCMgr.init();
     CGMgr.init();
 
-    const recipe_file = await fetch(`modules/${RndConf.SCOPE}/data/recipes.json`);
-    const recipe_list = await recipe_file.json();
-    recipe_list.recipes.forEach(el => { CGMgr._add_recipe(el); });
   
     console.log("Init done");
     return preloadTemplates();
