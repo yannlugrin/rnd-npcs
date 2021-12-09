@@ -20,7 +20,7 @@ export class Category
   get label() { return this._label; }
 
   /**
-   * @property {Array<Field>} fields
+   * @property {Field[]} fields
    */
   get fields() { return this._fields; }
 }

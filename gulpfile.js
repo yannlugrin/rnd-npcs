@@ -67,7 +67,7 @@ async function buildWatch()
   watch('src/img/**', { ignoreInitial: false }, copyImages);
   watch('src/static/**', { ignoreInitial: false }, copyStatic);
   watch('./src/static/templates/**/*.hbs', { ignoreInitial: false }, buildTemplateList);
-  watch(['README.md', './src/static/module/**/*.js'], {ignoreInitial: false}, buildDocumentation);
+  watch(['README.md', './src/static/module/**/*.js', './tutorials/**/*.md'], {ignoreInitial: false}, buildDocumentation);
 }
 
 exports.build = series(clean, parallel(buildCSS, copyImages, copyStatic, buildTemplateList, buildDocumentation));

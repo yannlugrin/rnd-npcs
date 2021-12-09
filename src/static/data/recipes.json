@@ -15,25 +15,25 @@
           [
             {
               "name": "full_name",
-              "options": [ "[self:first_name] [self:last_name]" ],
+              "formulas": [ "[self:first_name] [self:last_name]" ],
               "order": 10
             },
             {
               "name": "first_name",
               "label": "RNDNPCS.PERSON.FIRST_NAME",
-              "options": [ "[faker:name.firstName]" ],
+              "formulas": [ "[faker:name.firstName]" ],
               "propagates": [ "nick_name", "email", "full_name" ]
             },
             {
               "name": "last_name",
               "label": "RNDNPCS.PERSON.LAST_NAME",
-              "options": [ "[faker:name.lastName]" ],
+              "formulas": [ "[faker:name.lastName]" ],
               "propagates": [ "nick_name", "email", "full_name" ]
             },
             {
               "name": "nick_name",
               "label": "RNDNPCS.PERSON.NICK_NAME",
-              "options":
+              "formulas":
               [
                 "[faker:hacker.ingverb][self:first_name]",
                 "I am [self:first_name] [self:last_name]",
@@ -50,7 +50,7 @@
             {
               "name": "email",
               "label": "RNDNPCS.PERSON.EMAIL",
-              "options": [ "[faker:internet.email:[self:first_name]:[self:last_name]]" ],
+              "formulas": [ "[faker:internet.email:[self:first_name]:[self:last_name]]" ],
               "post_proc": [ {"chance": 1, "processPool": ["slugify"]} ],
               "order": 20
             }
@@ -63,12 +63,12 @@
             {
               "name": "job",
               "label": "RNDNPCS.PERSON.JOB",
-              "options": [ "[faker:company.companyName]" ]
+              "formulas": [ "[faker:company.companyName]" ]
             },
             {
               "name": "company",
               "label": "RNDNPCS.PERSON.COMPANY",
-              "options": [ "[faker:name.jobTitle]" ]
+              "formulas": [ "[faker:name.jobTitle]" ]
             }
           ]
         }
@@ -102,7 +102,7 @@
             {
               "name": "name",
               "label": "RNDNPCS.CORP.NAME",
-              "options": [ "[faker:company.companyName]" ],
+              "formulas": [ "[faker:company.companyName]" ],
               "post_proc":
               [
                 { "chance": 0.25, "processPool": [ "camelcase", "slugify" ] }
@@ -111,22 +111,22 @@
             {
               "name": "ceo",
               "label": "RNDNPCS.CORP.CEO",
-              "options": [ "[faker:name.firstName] [faker:name.lastName]" ]
+              "formulas": [ "[faker:name.firstName] [faker:name.lastName]" ]
             },
             {
               "name": "area",
               "label": "RNDNPCS.CORP.AREA",
-              "options": [ "[faker:commerce.department]" ]
+              "formulas": [ "[faker:commerce.department]" ]
             },
             {
               "name": "slogan",
               "label": "RNDNPCS.CORP.SLOGAN",
-              "options": [ "[faker:company.catchPhrase]" ]
+              "formulas": [ "[faker:company.catchPhrase]" ]
             },
             {
               "name": "latest_product",
               "label": "RNDNPCS.CORP.LATEST_PRODUCT",
-              "options": [ "[faker:commerce.productName]" ]
+              "formulas": [ "[faker:commerce.productName]" ]
             }
           ]
         }

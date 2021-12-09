@@ -8,9 +8,10 @@ export class ContentGenerationManager
 {
   /**
    * A function that is used to resolve a bit of a formula.
-   * @callback ContentGenerationManager~GeneratorFunction
-   * @param {Array<String>} fields The current value of all fields.
-   * @param {Array<*>} args Arguments to call the generator with.
+   * @callback GeneratorFunction
+   * @param {String[]} fields The current value of all fields.
+   * @param {any[]} args Arguments to call the generator with.
+   * @returns {Promise<String>}
    */
 
   /**@private */ static _recipes = new Map();
@@ -79,8 +80,8 @@ export class ContentGenerationManager
   /**
    * Returns a String that has been generated from a specific generator function.
    * @param {String} key Identifier for the generator function.
-   * @param {Array<String>} fields The current value of all fields.
-   * @param {Array<*>} args Arguments to call the generator with.
+   * @param {String[]} fields The current value of all fields.
+   * @param {any[]} args Arguments to call the generator with.
    * @returns {String} The generated result.
    */
   static async generate(key, fields, args)
@@ -98,7 +99,7 @@ export class ContentGenerationManager
    * Does some manipulation on the whole input.
    * @param {String} key 
    * @param {String} input 
-   * @returns {String}
+   * @returns {String} The manipulated input.
    */
   static postProcess(key, input, args)
   {
@@ -115,7 +116,7 @@ export class ContentGenerationManager
    * Executes a registered Form Action Function.
    * @param {String} key Identifier of the function you want to call.
    * @param {Object} data Holds all the latest rolled results.
-   * @param {Array<*>} args Arguments to pass.
+   * @param {any[]} args Arguments to pass.
    */
   static execFormAction(key, data, args)
   {
@@ -146,7 +147,11 @@ export class ContentGenerationManager
     throw new Error(`Recipe '${key}' not found.`);
   }
 
-  static getSceneButtons()
+  /**
+   * An array with scene control tools.
+   * @type {Object[]}
+   */
+  static get sceneButtons()
   {
     return [...ContentGenerationManager._recipes.values()].map(el =>
     {

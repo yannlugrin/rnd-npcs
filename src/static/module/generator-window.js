@@ -21,8 +21,8 @@ export class GeneratorWindow extends Application
   }
 
   /**
-   * 
-   * @param {Recipe} recipe 
+   * The window class that is responsible for handling the visual interfacing between Creation and user, closest to the user.
+   * @param {Recipe} recipe The Recipe that gets passed down to the Creation.
    */
   constructor(recipe)
   {

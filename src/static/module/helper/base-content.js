@@ -155,7 +155,7 @@ export class BaseContentManager
    * Cause a reroll for a field.
    * @private
    * @param {Creation} data 
-   * @param {Array} args - Array with the name of the field you want to reroll at first index. Omit the whole array to reroll all.
+   * @param {String[]|null} args - Array with the name of the field you want to reroll at first index. Omit the whole array to reroll all.
    */
   static redo_fam(data, args)
   {

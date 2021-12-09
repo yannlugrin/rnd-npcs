@@ -58,7 +58,7 @@
                   "items":
                   {
                     "type": "object",
-                    "required": [ "name", "options" ],
+                    "required": [ "name", "formulas" ],
                     "properties":
                     {
                       "name":
@@ -67,7 +67,7 @@
                         "description": "The reference for the field.",
                         "minLength": 1
                       },
-                      "options":
+                      "formulas":
                       {
                         "type": "array",
                         "description": "Blueprints for field values. Can be evaluated.",

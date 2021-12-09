@@ -3,23 +3,59 @@ import { Category } from "./category.js";
 import { Field } from "./field.js";
 import { ActionButton } from "./action-button.js";
 
+/**
+ * RECIPE
+ */
 export class Recipe
 {
+  /**
+   * @private
+   * @type {String}
+   */
   _name = "NAME";
+  
+  /**
+   * @private
+   * @type {String}
+   */
   _label = "LABEL";
+  
+  /**
+   * @private
+   * @type {String}
+   */
   _icon = "fas fa-question";
+  
+  /**
+   * @private
+   * @type {Category[]}
+   */
   _categories = [];
+
+  /**
+   * @private
+   * @type {String[]}
+   */
   _fieldNames = [];
+  
+  /**
+   * @private
+   * @type {ActionButton[]}
+   */
   _btns = [];
 
   /**
+   * @typedef {Object} RecipeData
+   * @property {String} obj.name Technical name of the recipe.
+   * @property {String} obj.label Tooltip of scene control button.
+   * @property {String} obj.icon Icon shown in scene control button.
+   * @property {Category[]} obj.categories
+   * @property {ActionButtonData[]} [obj.actions]
+   */
+
+  /**
    * Creates and initialises a Recipe instance from loose data.
-   * @param {Object} obj Recipedata
-   * @param {String} obj.name Technical name of the recipe.
-   * @param {String} obj.label Tooltip of scene control button.
-   * @param {String} obj.icon Icon shown in scene control button.
-   * @param {Array<Category>} obj.categories
-   * @param {Array<ActionButton>} obj.actions
+   * @param {RecipeData} obj Data used to create the Recipe.
    * @returns {Recipe} The finished Recipe instance.
    */
   static fromObject(obj)
@@ -40,18 +76,45 @@ export class Recipe
     return r;
   }
 
+  
+  /**
+   * The technical name of this Recipe.
+   * @type {String}
+   */
   get name() { return this._name; }
-  set name(value) { this._name = value; }
+  
+  /**
+   * Localisation key
+   * @type {String}
+   */
   get label() { return this._label; }
-  set label(value) { this._label = value; }
+  
+  /**
+   * Font Awesome icon id
+   * @type {String}
+   */
   get icon() { return this._icon; }
-  set icon(value) { this._icon = value; }
+  
+  /**
+   * All Categories of this Recipe.
+   * @type {Category[]}
+   */
   get categories() { return this._categories; }
+  
+  /**
+   * Identifier for all fields of this Recipe.
+   * @type {String[]}
+   */
   get fieldNames() { return this._fieldNames; }
+  
+  /**
+   * All buttons that should be rendered at the bottom of the form.
+   * @member {ActionButton[]} buttons
+   */
   get buttons() { return this._btns; }
   
   /**
-   * 
+   * Retrieves a field by identifier.
    * @param {String} name 
    * @returns {Field|null}
    */

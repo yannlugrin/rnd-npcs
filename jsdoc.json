@@ -26,6 +26,9 @@
   "docdash":
   {
     "search": true,
-    "sort": true
+    "sort": true,
+    "static": true,
+    "typedefs": true,
+    "collapse": true
   }
 }

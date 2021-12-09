@@ -36,7 +36,7 @@ class RndMain
       name: RndConf.SCOPE,
       title: "RNDNPCS.CONTROLS.GROUP",
       visible: true,
-      tools: CGMgr.getSceneButtons()
+      tools: CGMgr.sceneButtons
     });
   }
 }

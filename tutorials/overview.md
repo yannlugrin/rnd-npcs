@@ -1,2 +1,1 @@
-# Table of Contents
-[Lorem Ipsum](./lorem-ipsum.html)
+- [Concepts](./concepts.html) - Some basic explanation what different terms mean within the context of this project.
