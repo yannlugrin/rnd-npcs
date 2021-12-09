@@ -16,10 +16,10 @@ export class Recipe
    * Creates and initialises a Recipe instance from loose data.
    * @param {Object} obj Recipedata
    * @param {String} obj.name Technical name of the recipe.
-   * @param {String} obj.label
-   * @param {String} obj.icon
-   * @param {Array} obj.categories
-   * @param {Array} obj.actions
+   * @param {String} obj.label Tooltip of scene control button.
+   * @param {String} obj.icon Icon shown in scene control button.
+   * @param {Array<Category>} obj.categories
+   * @param {Array<ActionButton>} obj.actions
    * @returns {Recipe} The finished Recipe instance.
    */
   static fromObject(obj)

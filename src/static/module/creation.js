@@ -1,5 +1,6 @@
 import { ContentGenerationManager as CGMgr } from "./content-generation-mgr.js";
 import { Field } from "./field.js";
+import { RndConf } from "./helper/rnd-conf.js";
 import { Recipe } from "./recipe.js";
 
 export class Creation
@@ -71,6 +72,12 @@ export class Creation
     }
 
     this._dirty.add(field);
+
+    if(!RndConf.promote_changes)
+    {
+      return;
+    }
+
     const recipe_field = this._recipe.getField(field);
     recipe_field.propagates.forEach(el =>
     {

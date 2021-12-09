@@ -18,12 +18,12 @@ export class PostProcessOption
   }
 
   /**
-   * @member {Boolean} isUsed - Random boolean whether or not this option should be used on this pass.
+   * @property {Boolean} isUsed - Random boolean whether or not this option should be used on this pass.
    */
   get isUsed() { return RndUtil.chance(this._chance); }
 
   /**
-   * @member {String} processOption - First entry is the name, the remaining entries are the arguments.
+   * @property {String} processOption - First entry is the name, the remaining entries are the arguments.
    */
   get processOption()
   {

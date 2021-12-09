@@ -4,63 +4,62 @@
 export class RndConf
 {
   /**
-   * @member {string} - The technical name of the module.
+   * The technical name of the module.
+   * @readonly
+   * @type {String}
    */
   static get SCOPE() { return 'rnd-npcs'; }
 
   /**
-   * @member {string} - Key for the setting to promote changes.
+   * Key for the setting to promote changes.
+   * @readonly
+   * @type {String}
    */
-  static get PROMOTE_CHANGES() { return 'promote_changes'; }
+  static get PROMOTE_CHANGES_KEY() { return 'promote_changes'; }
 
   /**
-   * @member {string} - Key for the setting where to store npcs.
+   * Should changes generally promote?
+   * @type {Boolean}
    */
-  static get NPC_FOLDER() { return 'npc_folder'; }
+  static get promote_changes() { return game.settings.get( RndConf.SCOPE, RndConf.PROMOTE_CHANGES_KEY ); }
+  static set promote_changes(value) { return game.settings.set( RndConf.SCOPE, RndConf.PROMOTE_CHANGES_KEY, value ); }
+
 
   /**
-   * @member {string} - Key for the setting where to store corps.
+   * Key for the setting which locale faker should use.
+   * @readonly
+   * @type {String}
    */
-  static get CORP_FOLDER() { return 'corp_folder'; }
+  static get FAKER_LOCALE_KEY() { return 'faker_locale'; }
 
   /**
-   * @member {string} - Key for the setting which locale faker should use.
+   * The locale that faker uses to generate content.
+   * @type {String}
    */
-  static get FAKER_LOCALE() { return 'faker_locale'; }
+  static get faker_locale() { return game.settings.get( RndConf.SCOPE, RndConf.FAKER_LOCALE_KEY ); }
+  static set faker_locale(value) { return game.settings.set( RndConf.SCOPE, RndConf.FAKER_LOCALE_KEY, value ); }
 
+  /**
+   * This class only uses static functionality and members. No need for instantiation.
+   */
+  constructor(){}
+
+  /**
+   * @private
+   */
   static registerOptions()
   {
-    game.settings.register(this.SCOPE, this.PROMOTE_CHANGES,
+    game.settings.register(this.SCOPE, this.PROMOTE_CHANGES_KEY,
     {
       name: game.i18n.localize('RNDNPCS.SETTINGS.PROMOTE_CHANGES'),
       hint: game.i18n.localize('RNDNPCS.SETTINGS.PROMOTE_CHANGES_HINT'),
       scope: 'client',
       type: Boolean,
-      default: false,
+      default: true,
       config: true
     });
 
-    game.settings.register(this.SCOPE, this.NPC_FOLDER,
-    {
-      name: game.i18n.localize('RNDNPCS.SETTINGS.NPC_FOLDER'),
-      hint: game.i18n.localize('RNDNPCS.SETTINGS.NPC_FOLDER_HINT'),
-      scope: 'client',
-      type: String,
-      default: 'NPCs',
-      config: true
-    });
-
-    game.settings.register(this.SCOPE, this.CORP_FOLDER,
-    {
-      name: game.i18n.localize('RNDNPCS.SETTINGS.CORP_FOLDER'),
-      hint: game.i18n.localize('RNDNPCS.SETTINGS.CORP_FOLDER_HINT'),
-      scope: 'client',
-      type: String,
-      default: 'Corps',
-      config: true
-    });
-
-    game.settings.register(this.SCOPE, this.FAKER_LOCALE,
+    game.settings.register(this.SCOPE, this.FAKER_LOCALE_KEY,
     {
       name: game.i18n.localize('RNDNPCS.SETTINGS.FAKER_LOCALE'),
       hint: game.i18n.localize('RNDNPCS.SETTINGS.FAKER_LOCALE_HINT'),
@@ -117,6 +116,7 @@ export class RndConf
       },
       default: 'en',
       config: true,
+      // When updating this option, it's important to inform faker.js about it.
       onChange: value => faker.locale = value
     });
   }

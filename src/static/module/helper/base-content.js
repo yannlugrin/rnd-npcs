@@ -1,5 +1,5 @@
 import { ContentGenerationManager as CGMgr } from "../content-generation-mgr.js";
-import { RndConf } from "./configuration.js";
+import { RndConf } from "./rnd-conf.js";
 
 /**
  * This class holds, and is responsible for, the most basal content.
@@ -8,6 +8,9 @@ import { RndConf } from "./configuration.js";
  */
 export class BaseContentManager
 {
+  /**
+   * @private
+   */
   static init()
   {
     Hooks.once(CGMgr.REGISTER_GENERATOR_FUNCTIONS_HOOK, (register) =>
@@ -42,16 +45,26 @@ export class BaseContentManager
   //---------------------------------------------------------------
   // Generator Methods
   //---------------------------------------------------------------
+
+  /**
+   * @private
+   */
   static async faker_gm(fields, args)
   {
     return foundry.utils.getProperty(faker, args[0])(...args.slice(1));
   }
 
+  /**
+   * @private
+   */
   static async self_gm(fields, args)
   {
     return fields[args[0]];
   }
 
+  /**
+   * @private
+   */
   static async rolltable_gm(fields, args)
   {
     let drawn = await game.tables.getName(args[0]).draw({displayChat: false});
@@ -59,6 +72,9 @@ export class BaseContentManager
     return result;
   }
 
+  /**
+   * @private
+   */
   static async pick_one_gm(input, args)
   {
     console.log("pick", args);
@@ -68,16 +84,26 @@ export class BaseContentManager
   //---------------------------------------------------------------
   // Postprocessing Methods
   //---------------------------------------------------------------
+
+  /**
+   * @private
+   */
   static to_lower_ppm(input, args)
   {
     return input.toLowerCase();
   }
 
+  /**
+   * @private
+   */
   static slugify_ppm(input, args)
   {
     return input.slugify();
   }
 
+  /**
+   * @private
+   */
   static camelcase_ppm(input, args)
   {
     return input.replace(/\s+(\w)/g, (a, b) => b.toUpperCase());
@@ -86,6 +112,10 @@ export class BaseContentManager
   //---------------------------------------------------------------
   // Form Action Methods
   //---------------------------------------------------------------
+  
+  /**
+   * @private
+   */
   static async export_to_je_fam(data, args)
   {
     let key = "name";
@@ -123,6 +153,7 @@ export class BaseContentManager
 
   /**
    * Cause a reroll for a field.
+   * @private
    * @param {Creation} data 
    * @param {Array} args - Array with the name of the field you want to reroll at first index. Omit the whole array to reroll all.
    */

@@ -1,4 +1,4 @@
-import { RndConf } from "./module/helper/configuration.js";
+import { RndConf } from "./module/helper/rnd-conf.js";
 import { ContentGenerationManager as CGMgr } from "./module/content-generation-mgr.js";
 import { BaseContentManager as BCMgr } from "./module/helper/base-content.js";
 
@@ -11,7 +11,7 @@ class RndMain
     console.log("RndNPCs | Initialising...");
     CONFIG.Canvas.layers[RndConf.SCOPE] = CanvasLayer;
     RndConf.registerOptions();
-    faker.locale = game.settings.get(RndConf.SCOPE, RndConf.FAKER_LOCALE);
+    faker.locale = game.settings.get(RndConf.SCOPE, RndConf.FAKER_LOCALE_KEY);
 
     BCMgr.init();
     CGMgr.init();

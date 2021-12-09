@@ -32,7 +32,7 @@ export class Field
   get post_proc() { return this._post_proc; }
 
   /**
-   * @member {String} option - A random choice from the options.
+   * @property {String} option - A random choice from the options.
    */
   get option() { return faker.random.arrayElement(this._options) ?? "EMPTY"; }
 }

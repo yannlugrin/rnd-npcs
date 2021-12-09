@@ -1,12 +1,22 @@
 import { GeneratorWindow } from "./generator-window.js";
 import { Recipe } from "./recipe.js";
 
+/**
+ * Responsible for managing content creation functionality.
+ */
 export class ContentGenerationManager
 {
-  static _recipes = new Map();
-  static _gen_funcs = new Map();
-  static _post_proc_funcs = new Map();
-  static _form_action_funcs = new Map();
+  /**
+   * A function that is used to resolve a bit of a formula.
+   * @callback ContentGenerationManager~GeneratorFunction
+   * @param {Array<String>} fields The current value of all fields.
+   * @param {Array<*>} args Arguments to call the generator with.
+   */
+
+  /**@private */ static _recipes = new Map();
+  /**@private */ static _gen_funcs = new Map();
+  /**@private */ static _post_proc_funcs = new Map();
+  /**@private */ static _form_action_funcs = new Map();
 
   static get REGISTER_GENERATOR_FUNCTIONS_HOOK() { return 'registerGeneratorFunctions'; }
   static get REGISTER_POST_PROCESSING_FUNCTIONS_HOOK() { return 'registerPostProcessingFunctions'; }
@@ -24,6 +34,7 @@ export class ContentGenerationManager
   /**
    * Add a recipe that can be used in a generator window.
    * @param {Object} recipeData
+   * @private
    */
   static _add_recipe(recipeData)
   {
@@ -33,8 +44,9 @@ export class ContentGenerationManager
 
   /**
    * Add a generation function that can later be used to solve field pieces.
-   * @param {String} key 
-   * @param {Function} func 
+   * @param {String} key
+   * @param {GeneratorFunction} func
+   * @private
    */
   static _add_generator_function(key, func)
   {
@@ -45,6 +57,7 @@ export class ContentGenerationManager
    * Add a string post processing function that can later be used to overhaul complete fields.
    * @param {String} key 
    * @param {Function} func 
+   * @private
    */
   static _add_post_processing_function(key, func)
   {
@@ -55,6 +68,7 @@ export class ContentGenerationManager
    * Add a function that can later be called from a button at the bottom of the form.
    * @param {String} key 
    * @param {Function} func 
+   * @private
    */
   static _add_form_action_function(key, func)
   {
