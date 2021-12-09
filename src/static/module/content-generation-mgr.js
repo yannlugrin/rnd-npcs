@@ -1,6 +1,4 @@
-import { Creation } from "./creation.js";
 import { GeneratorWindow } from "./generator-window.js";
-import { RndUtil } from "./helper/rnd-util.js";
 import { Recipe } from "./recipe.js";
 
 export class ContentGenerationManager
@@ -9,27 +7,25 @@ export class ContentGenerationManager
   static _gen_funcs = new Map();
   static _post_proc_funcs = new Map();
   static _form_action_funcs = new Map();
+
+  static get REGISTER_GENERATOR_FUNCTIONS_HOOK() { return 'registerGeneratorFunctions'; }
+  static get REGISTER_POST_PROCESSING_FUNCTIONS_HOOK() { return 'registerPostProcessingFunctions'; }
+  static get REGISTER_FORM_ACTION_FUNCTIONS_HOOK() { return 'registerFormActionFunctions'; }
+  static get REGISTER_RECIPES_HOOK() { return 'registerRecipes'; }
   
   static init()
   {
-    ContentGenerationManager._gen_funcs.set("faker", RndUtil.faker_gm);
-    ContentGenerationManager._gen_funcs.set("self", RndUtil.self_gm);
-    ContentGenerationManager._gen_funcs.set("table", RndUtil.rolltable_gm);
-    ContentGenerationManager._gen_funcs.set("pick_one", RndUtil.pick_one_gm);
-
-    ContentGenerationManager._post_proc_funcs.set("tolower", RndUtil.to_lower_ppm);
-    ContentGenerationManager._post_proc_funcs.set("slugify", RndUtil.slugify_ppm);
-    ContentGenerationManager._post_proc_funcs.set("camelcase", RndUtil.camelcase_ppm);
-
-    ContentGenerationManager._form_action_funcs.set("export_to_je", RndUtil.export_to_je_fam);
-    ContentGenerationManager._form_action_funcs.set("redo", RndUtil.redo_fam);
+    Hooks.callAll(ContentGenerationManager.REGISTER_GENERATOR_FUNCTIONS_HOOK, ContentGenerationManager._add_generator_function);
+    Hooks.callAll(ContentGenerationManager.REGISTER_POST_PROCESSING_FUNCTIONS_HOOK, ContentGenerationManager._add_post_processing_function);
+    Hooks.callAll(ContentGenerationManager.REGISTER_FORM_ACTION_FUNCTIONS_HOOK, ContentGenerationManager._add_form_action_function);
+    Hooks.callAll(ContentGenerationManager.REGISTER_RECIPES_HOOK, ContentGenerationManager._add_recipe);
   }
 
   /**
-   * 
-   * @param {Recipe} recipeData 
+   * Add a recipe that can be used in a generator window.
+   * @param {Object} recipeData
    */
-  static add_recipe(recipeData)
+  static _add_recipe(recipeData)
   {
     const recipe = Recipe.fromObject(recipeData)
     this._recipes.set(recipe.name, recipe);
@@ -40,9 +36,9 @@ export class ContentGenerationManager
    * @param {String} key 
    * @param {Function} func 
    */
-  static addGeneratorFunction(key, func)
+  static _add_generator_function(key, func)
   {
-    ContentGenerationManager._gen_funcs.add(key.toLowerCase(), func);
+    ContentGenerationManager._gen_funcs.set(key.toLowerCase(), func);
   }
 
   /**
@@ -50,25 +46,38 @@ export class ContentGenerationManager
    * @param {String} key 
    * @param {Function} func 
    */
-  static addPostProcessingFunction(key, func)
+  static _add_post_processing_function(key, func)
   {
-    ContentGenerationManager._post_proc_funcs.add(key.toLowerCase(), func);
+    ContentGenerationManager._post_proc_funcs.set(key.toLowerCase(), func);
   }
 
   /**
-   * Returns a generator function.
+   * Add a function that can later be called from a button at the bottom of the form.
    * @param {String} key 
-   * @returns {Method} An async generator method.
+   * @param {Function} func 
    */
-  static getGenerator(key)
+  static _add_form_action_function(key, func)
+  {
+    console.log("register", key);
+    ContentGenerationManager._form_action_funcs.set(key.toLowerCase(), func);
+  }
+
+  /**
+   * Returns a String that has been generated from a specific generator function.
+   * @param {String} key Identifier for the generator function.
+   * @param {Array<String>} fields The current value of all fields.
+   * @param {Array<*>} args Arguments to call the generator with.
+   * @returns {String} The generated result.
+   */
+  static async generate(key, fields, args)
   {
     const k = key.toLowerCase();
     if(ContentGenerationManager._gen_funcs.has(k))
     {
-      return ContentGenerationManager._gen_funcs.get(k);
+      return await ContentGenerationManager._gen_funcs.get(k)(fields, args);
     }
 
-    throw new Error(`Key '${key}' not defined.`);
+    throw new Error(`Generation function '${key}' not registered.`);
   }
 
   /**
@@ -85,18 +94,26 @@ export class ContentGenerationManager
       return ContentGenerationManager._post_proc_funcs.get(k)(input, args);
     }
 
-    throw new Error(`Post-Processing function '${key}' not found.`);
+    throw new Error(`Post-Processing function '${key}' not registered.`);
   }
 
+  /**
+   * Executes a registered Form Action Function.
+   * @param {String} key Identifier of the function you want to call.
+   * @param {Object} data Holds all the latest rolled results.
+   * @param {Array<*>} args Arguments to pass.
+   */
   static execFormAction(key, data, args)
   {
     const k = key.toLowerCase();
+
     if(ContentGenerationManager._form_action_funcs.has(k))
     {
-      return ContentGenerationManager._form_action_funcs.get(k)(data, args);
+      const func = ContentGenerationManager._form_action_funcs.get(k)(data, args);
+      return;
     }
 
-    throw new Error(`Form-action function '${key}' not found.`);
+    throw new Error(`Form-action function '${key}' not registered.`);
   }
 
   /**

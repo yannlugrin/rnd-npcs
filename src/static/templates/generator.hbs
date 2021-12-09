@@ -1,8 +1,14 @@
 <form autocomplete="off">
+
+  <!-- Categories -->
+
   {{#each recipe.categories}}
     <fieldset>
       <legend>{{localize label}}</legend>
       <div class="info-table">
+
+        <!-- Fields -->
+
         {{#each fields}}
           {{#if label}}
             <label>{{localize label}}</label>
@@ -14,12 +20,18 @@
     </fieldset>
   {{/each}}
   <div class="form-action-btns">
+
+    <!-- Action Buttons -->
+
     {{#each recipe.buttons}}
       <a class="action-btn bottom-btn {{#if highlight}}highlight{{/if}}" data-action="{{action}}" data-args="{{args}}">
         <p>{{localize label}}</p>
         <i class="{{icon}}"></i>
       </a>
     {{else}}
+
+    <!-- Fallback Action Buttons -->
+    
       <a class="action-btn bottom-btn" data-action="redo">
         <p>{{localize "RNDNPCS.MISC.REDO_ALL"}}</p>
         <i class="fas fa-redo"></i>

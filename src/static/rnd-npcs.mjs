@@ -1,9 +1,6 @@
 import { RndConf } from "./module/helper/configuration.js";
-import { PersonWindow } from "./module/person-window.js";
-import { CorpWindow } from "./module/corp-window.js";
-import { Recipe } from "./module/recipe.js";
-import { GeneratorWindow } from "./module/generator-window.js";
 import { ContentGenerationManager as CGMgr } from "./module/content-generation-mgr.js";
+import { BaseContentManager as BCMgr } from "./module/helper/base-content.js";
 
 class RndMain
 {
@@ -16,11 +13,12 @@ class RndMain
     RndConf.registerOptions();
     faker.locale = game.settings.get(RndConf.SCOPE, RndConf.FAKER_LOCALE);
 
+    BCMgr.init();
     CGMgr.init();
 
     const recipe_file = await fetch(`modules/${RndConf.SCOPE}/data/recipes.json`);
     const recipe_list = await recipe_file.json();
-    recipe_list.recipes.forEach(el => { CGMgr.add_recipe(el); });
+    recipe_list.recipes.forEach(el => { CGMgr._add_recipe(el); });
   
     console.log("Init done");
     return preloadTemplates();
@@ -57,8 +55,3 @@ async function preloadTemplates()
   const files = await list.json();
   return loadTemplates(files);
 }
-
-Handlebars.registerHelper('faker', (key) =>
-{
-  return foundry.utils.getProperty(faker, key)();
-});

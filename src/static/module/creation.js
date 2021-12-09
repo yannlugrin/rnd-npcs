@@ -1,7 +1,5 @@
 import { ContentGenerationManager as CGMgr } from "./content-generation-mgr.js";
 import { Field } from "./field.js";
-import { RndUtil } from "./helper/rnd-util.js";
-import { PostProcessOption as PPO } from "./post-proc-option.js";
 import { Recipe } from "./recipe.js";
 
 export class Creation
@@ -29,9 +27,11 @@ export class Creation
 
     this._recipe = recipe;
     this.setAllDirty();
-    console.log(this._recipe);
   }
 
+  /**
+   * Call this if you need to reroll all fields.
+   */
   setAllDirty()
   {
     this._recipe.fieldNames.forEach(el =>
@@ -40,6 +40,9 @@ export class Creation
     });
   }
 
+  /**
+   * Rerolls all fields that are marked dirty.
+   */
   async resolveDirty()
   {
     // Sort dirty fields by order.
@@ -47,7 +50,12 @@ export class Creation
     const sorted = valArr.sort((a, b) => { return this._recipe.getField(a).order - this._recipe.getField(b).order; });
 
     // Resolve rerolling.
-    sorted.forEach(async el => this.trigger(el));
+    for(let i = 0, num = sorted.length; i < num; ++i)
+    {
+      // It's necessary to use a regular for loop instead of the forEach method as
+      // each call needs to be resolved before another can be made.
+      await this.trigger(sorted[i]);
+    }
     this._dirty.clear();
   }
 
@@ -68,46 +76,74 @@ export class Creation
     {
       this.setDirty(el);
     });
-
-    console.log(this._dirty);
   }
 
+  /**
+   * Actual rerolling of a field. Window needs to re-render after this.
+   * @param {String} field 
+   */
   async trigger(field)
   {
-    console.log("trigger", field);
+    // Get the field...
     const recipe_field = this._recipe.getField(field);
+
+    // ...and draw a new formula.
     let result = recipe_field.option;
 
+    // Cycle over the formula until there are no more [] bracket pairs.
+    // Or until you had enough attempts to assume something went wrong
+    // and you need to break out.
     let emergencyBrake = Creation._max_attempts;
     let hits = result.match(Creation.MATCHING_BRACKETS_REGEX) || [];
     while((hits.length > 0) && (emergencyBrake > 0))
     {
       emergencyBrake--;
 
+      // For every [] bracket pair that was found, resolve the encased operation.
       for(let i=0, num = hits.length; i < num; ++i)
       {
+        // Each hit has the form of [f:a0:a1:a2:...:an],
+        // where the amount of arguments (a) can be zero or more.
+        // First step is to strip the surrounding braces, then the string needs to be split by the colons.
         const parts = hits[i].slice(1, -1).split(Creation.PART_DELIMITER);
-        const generator = CGMgr.getGenerator(parts[0]);
-        const generated = await generator(result, {...this._fields}, parts.slice(1)) ?? "";
+
+        // First part (f) is the name of the generator function. This function shall be called
+        // with all current fields for reference, as well as the remaining arguments.
+        const generated = await CGMgr.generate(parts[0], {...this._fields}, parts.slice(1));
+
+        // Only thing that remains is to implement the freshly generated piece and that's one [] bracket pair done.
         result = result.replace(hits[i], generated);
       }
 
+      // See if there are still bracket pairs.
       hits = result.match(Creation.MATCHING_BRACKETS_REGEX) || [];
     }
 
+    // At this point all bracket pairs have been resolved. Time for post processing.
+    // Go about every step one by one.
     recipe_field.post_proc.forEach(el =>
     {
+      // See if this step should get executed.
       if(el.isUsed)
       {
+        // Retrieve the name and arguments of the post processing function for this step.
+        // What's returned here is an array with the identifier as first element and the
+        // arguments in the remaining elements.
         const parts = el.processOption;
-        result = CGMgr.postProcess(parts[0].toLowerCase(), result, parts.splice(1));
+
+        // Apply post processing to the result.
+        result = CGMgr.postProcess(parts[0], result, parts.splice(1));
       }
     });
 
+    // Store result in field.
     this._fields[field] = result;
-    //recipe_field.propagates.forEach(el => this.trigger(el));
   }
 
+  /**
+   * Creates a table with the input of all visible fields.
+   * @returns {Html} A HTML-String.
+   */
   toHtml()
   {
     let html = '<table>';
@@ -127,6 +163,13 @@ export class Creation
     return html;
   }
 
+  /**
+   * @param {Recipe} recipe The recipe used in this creation.
+   */
   get recipe() { return this._recipe; }
+
+  /**
+   * @param {Array<String>} fields The current values stored for this creation.
+   */
   get fields() { return this._fields; }
 }
