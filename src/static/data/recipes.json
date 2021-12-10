@@ -85,7 +85,7 @@
           "icon": "fas fa-book-open",
           "action": "export_to_je",
           "args": "full_name",
-          "highlight": true
+          "is_highlighted": true
         }
       ]
     },

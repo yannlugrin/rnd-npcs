@@ -181,7 +181,7 @@
                   "description": "Arguments for the operation, divided by colons.",
                   "minLength": 1
                 },
-                "highlight":
+                "is_highlighted":
                 {
                   "type": "boolean",
                   "description": "If this key is present in the object and is set to true, the button will be visually emphasised."

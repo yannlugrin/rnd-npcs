@@ -24,7 +24,7 @@
     <!-- Action Buttons -->
 
     {{#each recipe.buttons}}
-      <a class="action-btn bottom-btn {{#if highlight}}highlight{{/if}}" data-action="{{action}}" data-args="{{args}}">
+      <a class="action-btn bottom-btn {{#if is_highlighted}}highlight{{/if}}" data-action="{{action}}" data-args="{{args}}">
         <p>{{localize label}}</p>
         <i class="{{icon}}"></i>
       </a>
