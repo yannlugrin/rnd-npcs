@@ -6,5 +6,9 @@
   "concepts":
   {
     "title": "Concepts"
+  },
+  "custom-recipes":
+  {
+    "title": "Custom Recipes"
   }
 }

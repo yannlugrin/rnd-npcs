@@ -14,10 +14,10 @@ export class ContentGenerationManager
    * @returns {Promise<String>}
    */
 
-  /**@private */ static _recipes = new Map();
-  /**@private */ static _gen_funcs = new Map();
-  /**@private */ static _post_proc_funcs = new Map();
-  /**@private */ static _form_action_funcs = new Map();
+  /** @private */ static _recipes = new Map();
+  /** @private */ static _gen_funcs = new Map();
+  /** @private */ static _post_proc_funcs = new Map();
+  /** @private */ static _form_action_funcs = new Map();
 
   static get REGISTER_GENERATOR_FUNCTIONS_HOOK() { return 'registerGeneratorFunctions'; }
   static get REGISTER_POST_PROCESSING_FUNCTIONS_HOOK() { return 'registerPostProcessingFunctions'; }
@@ -26,9 +26,13 @@ export class ContentGenerationManager
   
   static init()
   {
+    // @ts-ignore
     Hooks.callAll(ContentGenerationManager.REGISTER_GENERATOR_FUNCTIONS_HOOK, ContentGenerationManager._add_generator_function);
+    // @ts-ignore
     Hooks.callAll(ContentGenerationManager.REGISTER_POST_PROCESSING_FUNCTIONS_HOOK, ContentGenerationManager._add_post_processing_function);
+    // @ts-ignore
     Hooks.callAll(ContentGenerationManager.REGISTER_FORM_ACTION_FUNCTIONS_HOOK, ContentGenerationManager._add_form_action_function);
+    // @ts-ignore
     Hooks.callAll(ContentGenerationManager.REGISTER_RECIPES_HOOK, ContentGenerationManager._add_recipe);
   }
 
@@ -82,7 +86,7 @@ export class ContentGenerationManager
    * @param {String} key Identifier for the generator function.
    * @param {String[]} fields The current value of all fields.
    * @param {any[]} args Arguments to call the generator with.
-   * @returns {String} The generated result.
+   * @returns {Promise<String>} The generated result.
    */
   static async generate(key, fields, args)
   {
@@ -124,6 +128,7 @@ export class ContentGenerationManager
 
     if(ContentGenerationManager._form_action_funcs.has(k))
     {
+      // @ts-ignore
       const func = ContentGenerationManager._form_action_funcs.get(k)(data, args);
       return;
     }
@@ -141,10 +146,10 @@ export class ContentGenerationManager
     const k = name.toLowerCase();
     if(ContentGenerationManager._recipes.has(k))
     {
-      return ContentGenerationManager._recipes.get(k)(data, args);
+      return ContentGenerationManager._recipes.get(k);
     }
 
-    throw new Error(`Recipe '${key}' not found.`);
+    throw new Error(`Recipe '${name}' not found.`);
   }
 
   /**
@@ -158,11 +163,13 @@ export class ContentGenerationManager
       return {
         icon: el.icon,
         name: el.name,
+        // @ts-ignore
         title: game.i18n.localize(el.label),
         visible: true,
         button: true,
         onClick: () =>
         {
+          // @ts-ignore
           new GeneratorWindow(el).render(true);
         }
       }

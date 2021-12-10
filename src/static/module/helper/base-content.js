@@ -1,4 +1,5 @@
 import { ContentGenerationManager as CGMgr } from "../content-generation-mgr.js";
+import { Creation } from "../creation.js";
 import { RndConf } from "./rnd-conf.js";
 
 /**
@@ -13,6 +14,7 @@ export class BaseContentManager
    */
   static init()
   {
+    // @ts-ignore
     Hooks.once(CGMgr.REGISTER_GENERATOR_FUNCTIONS_HOOK, (register) =>
     {
       register("faker", BaseContentManager.faker_gm);
@@ -21,6 +23,7 @@ export class BaseContentManager
       register("pick_one", BaseContentManager.pick_one_gm);
     });
 
+    // @ts-ignore
     Hooks.once(CGMgr.REGISTER_POST_PROCESSING_FUNCTIONS_HOOK, (register) =>
     {
       register("slugify", BaseContentManager.slugify_ppm);
@@ -28,12 +31,14 @@ export class BaseContentManager
       register("camelcase", BaseContentManager.camelcase_ppm);
     });
 
+    // @ts-ignore
     Hooks.once(CGMgr.REGISTER_FORM_ACTION_FUNCTIONS_HOOK, (register) =>
     {
       register("redo", BaseContentManager.redo_fam);
       register("export_to_je", BaseContentManager.export_to_je_fam);
     });
 
+    // @ts-ignore
     Hooks.once(CGMgr.REGISTER_RECIPES_HOOK, (register) =>
     {
       fetch(`modules/${RndConf.SCOPE}/data/recipes.json`)
@@ -51,6 +56,7 @@ export class BaseContentManager
    */
   static async faker_gm(fields, args)
   {
+    // @ts-ignore
     return foundry.utils.getProperty(faker, args[0])(...args.slice(1));
   }
 
@@ -67,6 +73,7 @@ export class BaseContentManager
    */
   static async rolltable_gm(fields, args)
   {
+    // @ts-ignore
     let drawn = await game.tables.getName(args[0]).draw({displayChat: false});
     let result = drawn.results[0].data.text;
     return result;
@@ -78,6 +85,7 @@ export class BaseContentManager
   static async pick_one_gm(input, args)
   {
     console.log("pick", args);
+    // @ts-ignore
     return faker.random.arrayElement(args);
   }
 
@@ -106,6 +114,7 @@ export class BaseContentManager
    */
   static camelcase_ppm(input, args)
   {
+    // @ts-ignore
     return input.replace(/\s+(\w)/g, (a, b) => b.toUpperCase());
   }
 
@@ -126,10 +135,12 @@ export class BaseContentManager
     let name = data.fields[key];
     if(!name)
     {
+      // @ts-ignore
       name = `${game.i18n.localize('RNDNPCS.MISC.NEW_UNNAMED')} (${foundry.utils.randomID(5)})`;
       console.warn(`Unable to find name field for recipe '${data.recipe.name}'.`);
     }
     
+    // @ts-ignore
     const je = await JournalEntry.create(
     {
       name: name,
