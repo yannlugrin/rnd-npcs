@@ -21,7 +21,9 @@ export class RndConf
    * Should changes generally promote?
    * @type {Boolean}
    */
+  // @ts-ignore
   static get promote_changes() { return game.settings.get( RndConf.SCOPE, RndConf.PROMOTE_CHANGES_KEY ); }
+  // @ts-ignore
   static set promote_changes(value) { return game.settings.set( RndConf.SCOPE, RndConf.PROMOTE_CHANGES_KEY, value ); }
 
 
@@ -36,7 +38,9 @@ export class RndConf
    * The locale that faker uses to generate content.
    * @type {String}
    */
+  // @ts-ignore
   static get faker_locale() { return game.settings.get( RndConf.SCOPE, RndConf.FAKER_LOCALE_KEY ); }
+  // @ts-ignore
   static set faker_locale(value) { return game.settings.set( RndConf.SCOPE, RndConf.FAKER_LOCALE_KEY, value ); }
 
   /**
@@ -47,11 +51,15 @@ export class RndConf
   /**
    * @private
    */
+  // @ts-ignore
   static registerOptions()
   {
+    // @ts-ignore
     game.settings.register(this.SCOPE, this.PROMOTE_CHANGES_KEY,
     {
+      // @ts-ignore
       name: game.i18n.localize('RNDNPCS.SETTINGS.PROMOTE_CHANGES'),
+      // @ts-ignore
       hint: game.i18n.localize('RNDNPCS.SETTINGS.PROMOTE_CHANGES_HINT'),
       scope: 'client',
       type: Boolean,
@@ -59,9 +67,12 @@ export class RndConf
       config: true
     });
 
+    // @ts-ignore
     game.settings.register(this.SCOPE, this.FAKER_LOCALE_KEY,
     {
+      // @ts-ignore
       name: game.i18n.localize('RNDNPCS.SETTINGS.FAKER_LOCALE'),
+      // @ts-ignore
       hint: game.i18n.localize('RNDNPCS.SETTINGS.FAKER_LOCALE_HINT'),
       scope: 'client',
       type: String,
@@ -117,6 +128,7 @@ export class RndConf
       default: 'en',
       config: true,
       // When updating this option, it's important to inform faker.js about it.
+      // @ts-ignore
       onChange: value => faker.locale = value
     });
   }

@@ -1,7 +1,15 @@
-//@ts-check
 import { Category } from "./category.js";
 import { Field } from "./field.js";
 import { ActionButton } from "./action-button.js";
+
+/**
+ * @typedef {Object} RecipeData
+ * @property {String} obj.name Technical name of the recipe.
+ * @property {String} obj.label Tooltip of scene control button.
+ * @property {String} obj.icon Icon shown in scene control button.
+ * @property {Category[]} obj.categories
+ * @property {import("./action-button.js").ActionButtonData[]} [obj.actions]
+ */
 
 /**
  * RECIPE
@@ -43,15 +51,6 @@ export class Recipe
    * @type {ActionButton[]}
    */
   _btns = [];
-
-  /**
-   * @typedef {Object} RecipeData
-   * @property {String} obj.name Technical name of the recipe.
-   * @property {String} obj.label Tooltip of scene control button.
-   * @property {String} obj.icon Icon shown in scene control button.
-   * @property {Category[]} obj.categories
-   * @property {ActionButtonData[]} [obj.actions]
-   */
 
   /**
    * Creates and initialises a Recipe instance from loose data.
@@ -120,10 +119,12 @@ export class Recipe
    */
   getField(name)
   {
+    /** @type {Field} */
     let result = null;
     
     this._categories.forEach((/** @type {Category} */ c) =>
     {
+      /** @type {Field[]} */
       const found = c.fields.filter((/** @type {Field} */ f) => f.name === name);
       if(found.length > 1)
       {

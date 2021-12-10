@@ -1,6 +1,15 @@
-//@ts-check
 import { RndUtil } from "./helper/rnd-util.js";
 import { PostProcessStep } from "./post-proc-step.js";
+
+/**
+ * @typedef {Object} FieldData
+ * @property {String} name The technical name of the field.
+ * @property {String} [label] Loca-key for this field. Omit for hidden fields.
+ * @property {Number} order An integer determininig when, in relation to the other fields, this one gets rerolled. The higher the later.
+ * @property {String[]} formulas All possible formulas for this Field.
+ * @property {String[]} [propagates] The names of the fields that require rerolling should this one change.
+ * @property {import("./post-proc-step.js").PostProcessStepData[]} [post_proc] All post processing steps in the desired order of execution.
+ */
 
 /**
  * FIELD
@@ -39,16 +48,6 @@ export class Field
    * @type {PostProcessStep[]}
    */
   _post_proc = [];
-  
-  /**
-   * @typedef {Object} FieldData
-   * @property {String} name The technical name of the field.
-   * @property {String} [label] Loca-key for this field. Omit for hidden fields.
-   * @property {Number} order An integer determininig when, in relation to the other fields, this one gets rerolled. The higher the later.
-   * @property {String[]} formulas All possible formulas for this Field.
-   * @property {String[]} [propagates] The names of the fields that require rerolling should this one change.
-   * @property {PostProcessStepData} [post_proc] All post processing steps in the desired order of execution.
-   */
 
   /**
    * Creates and initialises a Field instance from loose data.

@@ -2,7 +2,8 @@
   "compilerOptions":
   {
     "types": ["@league-of-foundry-developers/foundry-vtt-types"],
-    "target": "ES2021"
+    "target": "ES2021",
+    "checkJs": true
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "doc", "build", "dists", "screenshots"]
 }

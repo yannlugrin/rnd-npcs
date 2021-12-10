@@ -34,6 +34,7 @@
     "gulp-webp": "^4.0.1",
     "gulp-zip": "^5.1.0",
     "jsdoc": "^3.6.7",
+    "jsdoc-tsimport-plugin": "^1.0.5",
     "sass": "^1.43.4"
   }
 }

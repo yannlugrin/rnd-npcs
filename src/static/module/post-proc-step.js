@@ -1,6 +1,11 @@
-//@ts-check
 import { Creation } from "./creation.js";
 import { RndUtil } from "./helper/rnd-util.js";
+
+/**
+ * @typedef {Object} PostProcessStepData
+ * @property {Number} chance A number in the range [0, 1] that determines how likely this step is to occur. 0 = none, 1 = sure.
+ * @property {String[]} processPool An array containing possible PostProcessingOperationDetails.
+ */
 
 /**
  * PPS
@@ -9,12 +14,6 @@ export class PostProcessStep
 {
   _chance = 0;
   _processPool = [];
-
-  /**
-   * @typedef {Object} PostProcessStepData
-   * @property {Number} chance A number in the range [0, 1] that determines how likely this step is to occur. 0 = none, 1 = sure.
-   * @property {String[]} processPool An array containing possible PostProcessingOperationDetails.
-   */
 
   /**
    * Creates and initialises a PostProcessStep

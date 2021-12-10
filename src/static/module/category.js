@@ -1,5 +1,8 @@
 import { Field } from "./field.js";
 
+/**
+ * CATEGORY
+ */
 export class Category
 {
   _label = "LABEL";

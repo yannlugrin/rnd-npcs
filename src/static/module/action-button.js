@@ -1,6 +1,14 @@
-//@ts-check
 import { Creation } from "./creation.js";
 
+/**
+ * @typedef {Object} ActionButtonData
+ * @property {String} label Localisation key.
+ * @property {String} action Identifier of the action to call.
+ * @property {String} icon Font Awesome icon name, i.e. 'fas fa-something'.
+ * @property {String} [args] Arguments to pass the called function.
+ * @property {Boolean} [is_highlighted] Should the button be highlighted?
+ */
+  
 /**
  * ACTIONBUTTON
  */
@@ -37,15 +45,6 @@ export class ActionButton
   _is_highlighted = false;
 
   /**
-   * @typedef {Object} ActionButtonData
-   * @property {String} label Localisation key.
-   * @property {String} action Identifier of the action to call.
-   * @property {String} icon Font Awesome icon name, i.e. 'fas fa-something'.
-   * @property {String} [args] Arguments to pass the called function.
-   * @property {Boolean} [is_highlighted] Should the button be highlighted?
-   */
-
-  /**
    * Creates and instantiates an ActionButton.
    * @param {ActionButtonData} obj 
    * @returns {ActionButton}
@@ -56,8 +55,8 @@ export class ActionButton
     ab._label = obj.label;
     ab._action = obj.action;
     ab._icon = obj.icon;
-    ab._args = obj.args.split(Creation.PART_DELIMITER);
-    ab._is_highlighted ||= obj.is_highlighted;
+    ab._args = obj.args?.split(Creation.PART_DELIMITER);
+    ab._is_highlighted = obj.is_highlighted;
 
     return ab;
   }

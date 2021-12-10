@@ -1,4 +1,3 @@
-//@ts-check
 import { ContentGenerationManager as CGMgr } from "./content-generation-mgr.js";
 import { Field } from "./field.js";
 import { RndConf } from "./helper/rnd-conf.js";

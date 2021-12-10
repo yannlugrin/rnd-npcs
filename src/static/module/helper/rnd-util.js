@@ -7,13 +7,14 @@ export class RndUtil
    */
   static chance(p)
   {
+    // @ts-ignore
     return faker.datatype.float({min: 0, max: 1}) < p;
   }
 
   /**
    * Tries to parse any given input into an Integer.
    * @param {*} value
-   * @returns {Integer} Either the succesfully parsed Integer or 0.
+   * @returns {Number} Either the succesfully parsed Integer or 0.
    */
   static parseIntWithDefault(value)
   {
