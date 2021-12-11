@@ -16,7 +16,7 @@
             {
               "name": "full_name",
               "formulas": [ "[self:first_name] [self:last_name]" ],
-              "order": 10
+              "order": 100
             },
             {
               "name": "first_name",
@@ -45,14 +45,14 @@
               ],
               "propagates": [ "email" ],
               "post_proc": [ {"chance": 0.5, "processPool": ["slugify", "tolower", "camelcase"]} ],
-              "order": 10
+              "order": 100
             },
             {
               "name": "email",
               "label": "RNDNPCS.PERSON.EMAIL",
               "formulas": [ "[faker:internet.email:[self:first_name]:[self:last_name]]" ],
               "post_proc": [ {"chance": 1, "processPool": ["slugify"]} ],
-              "order": 20
+              "order": 200
             }
           ]
         },

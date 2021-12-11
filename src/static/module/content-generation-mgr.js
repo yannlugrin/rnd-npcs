@@ -2,18 +2,34 @@ import { GeneratorWindow } from "./generator-window.js";
 import { Recipe } from "./recipe.js";
 
 /**
+ * A function that is used to resolve a bit of a formula.
+ * @callback GeneratorFunction
+ * @param {String[]} fields The current value of all fields.
+ * @param {String[]} args Arguments to call the generator with.
+ * @returns {Promise<String>}
+ */
+
+/**
+ * A function that is used to transform a string.
+ * @callback PostProcessingFunction
+ * @param {String} input The current value of all fields.
+ * @param {String[]} args Arguments to call the processor function with.
+ * @returns {String}
+ */
+
+/**
+ * A function that can be executed on a Creation.
+ * @callback FormActionFunction
+ * @param {Creation} data The current state of the .
+ * @param {String[]} args Arguments to call the processor function with.
+ * @returns {String}
+ */
+
+/**
  * Responsible for managing content creation functionality.
  */
 export class ContentGenerationManager
 {
-  /**
-   * A function that is used to resolve a bit of a formula.
-   * @callback GeneratorFunction
-   * @param {String[]} fields The current value of all fields.
-   * @param {any[]} args Arguments to call the generator with.
-   * @returns {Promise<String>}
-   */
-
   /** @private */ static _recipes = new Map();
   /** @private */ static _gen_funcs = new Map();
   /** @private */ static _post_proc_funcs = new Map();

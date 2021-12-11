@@ -1,13 +1,34 @@
 import { Field } from "./field.js";
 
 /**
+ * @typedef CategoryData
+ * @property {String} label Loca key
+ * @property {import("./field.js").FieldData[]} fields
+ */
+
+/**
  * CATEGORY
  */
 export class Category
 {
+  /**
+   * @private
+   * @type {String}
+   */
   _label = "LABEL";
+  
+  /**
+   * @private
+   * @type {Field[]}
+   */
   _fields = [];
 
+
+  /**
+   * Creates and initialises a category object.
+   * @param {CategoryData} obj 
+   * @returns {Category}
+   */
   static fromObject(obj)
   {
     const c = new Category();

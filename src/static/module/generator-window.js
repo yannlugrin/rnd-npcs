@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { RndConf } from "./helper/rnd-conf.js";
 import { Creation } from "./creation.js";
 import { Recipe } from "./recipe.js";
@@ -5,6 +6,10 @@ import { ContentGenerationManager as CMgr } from "./content-generation-mgr.js";
 
 export class GeneratorWindow extends Application
 {
+  /**
+   * @private
+   * @type {Creation}
+   */
   data = null;
 
   static get defaultOptions()

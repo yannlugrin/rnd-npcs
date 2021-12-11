@@ -4,11 +4,11 @@ import { ActionButton } from "./action-button.js";
 
 /**
  * @typedef {Object} RecipeData
- * @property {String} obj.name Technical name of the recipe.
- * @property {String} obj.label Tooltip of scene control button.
- * @property {String} obj.icon Icon shown in scene control button.
- * @property {Category[]} obj.categories
- * @property {import("./action-button.js").ActionButtonData[]} [obj.actions]
+ * @property {String} name Technical name of the recipe.
+ * @property {String} label Tooltip of scene control button.
+ * @property {String} icon Icon shown in scene control button.
+ * @property {import("./category.js").CategoryData[]} categories
+ * @property {import("./action-button.js").ActionButtonData[]} [actions]
  */
 
 /**
@@ -108,7 +108,7 @@ export class Recipe
   
   /**
    * All buttons that should be rendered at the bottom of the form.
-   * @member {ActionButton[]} buttons
+   * @type {ActionButton[]}
    */
   get buttons() { return this._btns; }
   
