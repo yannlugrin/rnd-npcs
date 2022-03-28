@@ -1,0 +1,53 @@
+{
+  "RNDNPCS":
+  {
+    "MISC":
+    {
+      "WINDOW-TITLE": "Random Data",
+      "REDO_ALL": "Redo all",
+      "TO_JE": "Create JournalEntry"
+    },
+    "SETTINGS":
+    {
+      "PROMOTE_CHANGES": "Promote changes",
+      "PROMOTE_CHANGES_HINT": "When changing a field, should depending fields automatically be updated as well?",
+      "NPC_FOLDER": "NPC Folder",
+      "NPC_FOLDER_HINT": "Name of the folder to store JournalEntries created for NPCs. Leave empty to store them in root.",
+      "CORP_FOLDER": "Corp Folder",
+      "CORP_FOLDER_HINT": "Name of the folder to store JournalEntries created for Corps. Leave empty to store them in root.",
+      "FAKER_LOCALE": "Faker Locale",
+      "FAKER_LOCALE_HINT": "Choose from which locale data your random data should be drawn."
+    },
+    "CONTROLS":
+    {
+      "GROUP": "Random Data Generator",
+      "PERSON": "Person",
+      "CORP": "Corporation"
+    },
+    "CATEGORIES":
+    {
+      "ID": "ID",
+      "JOB": "Job",
+      "ADDRESS": "Address",
+      "COMPANY": "Company"
+    },
+    "PERSON":
+    {
+      "FIRST_NAME": "First name",
+      "LAST_NAME": "Last name",
+      "NAME": "Name",
+      "NICK_NAME": "Nick",
+      "EMAIL": "eMail",
+      "JOB": "Job",
+      "COMPANY": "Employer"
+    },
+    "CORP":
+    {
+      "NAME": "Name",
+      "CEO": "CEO",
+      "AREA": "Industry",
+      "SLOGAN": "Slogan",
+      "BESTSELLER": "Most sold product"
+    }
+  }
+}
